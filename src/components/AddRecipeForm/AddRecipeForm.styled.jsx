@@ -1,0 +1,162 @@
+import styled from '@emotion/styled';
+import { colors } from 'constants';
+import { hexToRgb, transition } from 'helpers';
+
+export const AddImage = styled.div`
+  width: 279px;
+  height: 268px;
+  margin: 0 auto;
+  background-color: ${colors.color1};
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+
+  & .icon {
+    width: 64px;
+    height: 64px;
+    fill: transparent;
+  }
+`;
+
+export const FieldWrapper = styled.div`
+  position: relative;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  min-height: 44px;
+
+  & .label {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    padding-left: 1px;
+    font-size: 14px;
+    line-height: 1.5;
+    ${transition('opacity', 'transform', 'font-size')};
+    font-weight: 300;
+    pointer-events: none;
+    color: rgba(${hexToRgb('#000000')}, 0.5);
+
+    /* & .star {
+      color: $brandcolor;
+      padding-left: 3px;
+      font-weight: 500;
+    } */
+  }
+
+  & input {
+    display: block;
+    width: 100%;
+    outline: none;
+    resize: none;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    padding: 0px 0px 5px 0px;
+    border-bottom: 1px solid ${colors.color3};
+    background-color: transparent;
+    transition: border-color 250ms ease-in-out;
+
+    &:focus {
+      border-bottom: 1px solid ${colors.color1};
+    }
+
+    &:focus + label {
+      opacity: 0.3;
+    }
+
+    &:not(:placeholder-shown) + label {
+      transform: translateY(-20px);
+      font-size: 13px;
+      opacity: 1;
+    }
+
+    &:not(:placeholder-shown) {
+      border-bottom: 1px solid #cdcdcd;
+    }
+  }
+
+  &.select input {
+    display: none;
+
+    &:not(:placeholder-shown) + label {
+      transform: translateY(0px);
+      font-size: 14px;
+      opacity: 1;
+    }
+  }
+
+  &.select label {
+    width: 100%;
+    padding-bottom: 4px;
+    border-bottom: 1px solid ${colors.color3};
+  }
+
+  & .error {
+    color: ${colors.color10};
+    font-size: 12px;
+    margin-top: 1px;
+    line-height: 1.4;
+  }
+`;
+
+export const Selected = styled.div`
+  position: absolute;
+  top: 18px;
+  right: 0;
+  font-size: 12px;
+  line-height: 1;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  & .icon {
+    width: 20px;
+    height: 20px;
+    stroke: ${colors.color1};
+    fill: transparent;
+  }
+`;
+
+export const SelectItems = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 0;
+  width: 123px;
+  max-height: 144px;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.03);
+  overflow-y: auto;
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(${hexToRgb('#000000')}, 0.5);
+  z-index: 1;
+
+  & .active {
+    color: ${colors.color1};
+  }
+`;
+
+export const Title = styled.h2`
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-top: 60px;
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Ingredients = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
