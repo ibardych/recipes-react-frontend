@@ -25,15 +25,13 @@ const AddRecipeForm = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const newRecipe = useSelector(selectNewRecipe);
-  const { image, fileData, title, description, category, time, instructions } =
-    newRecipe;
+  const { image, title, description, category, time, instructions } = newRecipe;
   const ingredients = newRecipe.ingredients.slice();
   const [file, setFile] = useState(null);
 
   const initialValues = useMemo(() => {
     return {
       image: '',
-      fileData: '',
       title: '',
       description: '',
       category: '',
@@ -154,7 +152,7 @@ const AddRecipeForm = () => {
 
   const handleSubmit = () => {
     const formData = new FormData();
-    console.log(file);
+
     formData.append('file', file);
     formData.append('title', title);
     formData.append('description', description);
@@ -162,13 +160,6 @@ const AddRecipeForm = () => {
     formData.append('time', time);
     formData.append('ingredients', JSON.stringify(ingredients));
     formData.append('instructions', instructions);
-
-    // const blob = new Blob([JSON.stringify(Object.fromEntries(formData))], {
-    //   type: 'application/json',
-    // });
-
-    // const sendData = new FormData();
-    // sendData.append('payload', blob);
 
     dispatch(createOwnRecipe(formData));
   };

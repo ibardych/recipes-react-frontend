@@ -6,7 +6,6 @@ const initialState = {
   modalOpened: false,
   newRecipe: {
     image: '',
-    fileData: '',
     title: '',
     description: '',
     instructions: '',
