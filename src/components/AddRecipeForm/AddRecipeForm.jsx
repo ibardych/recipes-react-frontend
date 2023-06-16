@@ -1,6 +1,6 @@
 import { Button } from 'components/Styled';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useEffect, useMemo, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import {
@@ -19,54 +19,51 @@ import Counter from 'components/Counter/Counter';
 import SelectIngredient from './SelectIngredient';
 import { selectNewRecipe } from 'redux/general/selectors';
 import { setNewRecipe } from 'redux/general/slice';
+import { createOwnRecipe } from 'redux/ownRecipes/operations';
 
 const AddRecipeForm = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const newRecipe = useSelector(selectNewRecipe);
-
-  const [title, setTitle] = useState(newRecipe?.title ?? '');
-  const [description, setDescription] = useState(newRecipe?.description ?? '');
-  const [category, setCategory] = useState(newRecipe?.category ?? '');
-  const [time, setTime] = useState('5 min');
+  const { image, fileData, title, description, category, time, instructions } =
+    newRecipe;
+  const ingredients = newRecipe.ingredients.slice();
+  const [file, setFile] = useState(null);
 
   const initialValues = useMemo(() => {
     return {
+      image: '',
+      fileData: '',
       title: '',
       description: '',
-      category: category,
-      time: time,
+      category: '',
+      time: '5 min',
+      instructions: '',
     };
-  }, [category, time]);
+  }, []);
 
   const defaultIngredient = useMemo(() => {
     return {
+      searchQuery: '',
       ingredient: '',
       ingredientId: null,
       measure: '',
-      measureType: 'tsp',
+      measureType: 'g',
       modalOpened: false,
     };
   }, []);
 
   useEffect(() => {
-    if (categories[0]?.name !== undefined && !category) {
-      setCategory(categories[0].name);
+    if (categories[0]?.name !== undefined && !newRecipe.category) {
+      dispatch(setNewRecipe({ ...newRecipe, category: categories[0].name }));
     }
 
-    if (Object.keys(newRecipe).length === 0) {
+    if (newRecipe.ingredients.length === 0) {
       dispatch(
         setNewRecipe({ ...initialValues, ingredients: [defaultIngredient] })
       );
     }
-  }, [
-    categories,
-    defaultIngredient,
-    dispatch,
-    initialValues,
-    newRecipe,
-    category,
-  ]);
+  }, [categories, defaultIngredient, dispatch, initialValues, newRecipe]);
 
   const [selectCategoryOpened, setSelectCategoryOpened] = useState(false);
   const [selectTimeOpened, setSelectTimeOpened] = useState(false);
@@ -74,56 +71,53 @@ const AddRecipeForm = () => {
   const schema = yup.object().shape({
     title: yup.string().required('Title is a required field'),
     description: yup.string().required('Description is a required field'),
-    category: yup.string().required('Category is a required field'),
+    // category: yup.string().required('Category is a required field'),
     time: yup.string().required('Time is a required field'),
-    age: yup
-      .number()
-      .required('Age is a required field')
-      .min(18)
-      .max(100)
-      .positive()
-      .integer(),
-    desiredWeight: yup
-      .number()
-      .min(20)
-      .max(500)
-      .required('Desired weight is a required field')
-      .positive()
-      .integer(),
-    bloodType: yup
-      .number()
-      .min(1)
-      .max(4)
-      .required('Blood type is a required field')
-      .positive()
-      .integer(),
   });
 
   const handleOnChange = e => {
-    const value = e.target.value;
-    switch (e.target.name) {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case 'image':
+        const file = e.target.files[0];
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          dispatch(setNewRecipe({ ...newRecipe, image: reader.result }));
+          setFile(file);
+        };
+        reader.readAsDataURL(file);
+        break;
       case 'title':
-        setTitle(value);
         dispatch(setNewRecipe({ ...newRecipe, title: value }));
         break;
       case 'description':
-        setDescription(value);
         dispatch(setNewRecipe({ ...newRecipe, description: value }));
         break;
+      case 'instructions':
+        dispatch(setNewRecipe({ ...newRecipe, instructions: value }));
+        break;
       default:
+        if (name.startsWith('measure[')) {
+          const index = name.match(/\[(\d+)\]/)[1];
+          ingredients[index] = {
+            ...ingredients[index],
+            measure: value,
+          };
+          dispatch(setNewRecipe({ ...newRecipe, ingredients }));
+        }
+        if (name.startsWith('ingredient[')) {
+          const index = name.match(/\[(\d+)\]/)[1];
+          ingredients[index] = {
+            ...ingredients[index],
+            ingredient: value,
+            searchQuery: value,
+          };
+          dispatch(setNewRecipe({ ...newRecipe, ingredients }));
+        }
         break;
     }
-  };
-
-  const handleSubmit = ({ weight, height, age, desiredWeight, bloodType }) => {
-    // const sendData = {
-    //   weight: Number(weight),
-    //   height: Number(height),
-    //   age: Number(age),
-    //   desiredWeight: Number(desiredWeight),
-    //   bloodType: Number(bloodType),
-    // };
-    // dispatch(calculatorLogIn(sendData));
   };
 
   const openSelectCategory = () => {
@@ -131,7 +125,6 @@ const AddRecipeForm = () => {
   };
 
   const selectCategory = category => {
-    setCategory(category);
     dispatch(setNewRecipe({ ...newRecipe, category }));
   };
 
@@ -140,7 +133,44 @@ const AddRecipeForm = () => {
   };
 
   const selectTime = time => {
-    setTime(time);
+    dispatch(setNewRecipe({ ...newRecipe, time }));
+  };
+
+  const fileInputRef = useRef(null);
+
+  const handleFileClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const FileInput = forwardRef(({ name }, ref) => (
+    <input
+      type="file"
+      accept=".jpg,.jpeg,.png"
+      style={{ display: 'none' }}
+      ref={ref}
+      name={name}
+    />
+  ));
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+    console.log(file);
+    formData.append('file', file);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('category', category);
+    formData.append('time', time);
+    formData.append('ingredients', JSON.stringify(ingredients));
+    formData.append('instructions', instructions);
+
+    // const blob = new Blob([JSON.stringify(Object.fromEntries(formData))], {
+    //   type: 'application/json',
+    // });
+
+    // const sendData = new FormData();
+    // sendData.append('payload', blob);
+
+    dispatch(createOwnRecipe(formData));
   };
 
   return (
@@ -151,11 +181,14 @@ const AddRecipeForm = () => {
         onSubmit={handleSubmit}
       >
         <Form autoComplete="off" onChange={handleOnChange}>
-          <AddImage>
-            <svg className="icon">
-              <use href={`${Sprite}#icon-photo`}></use>
-            </svg>
+          <AddImage onClick={handleFileClick} image={image}>
+            {!image && (
+              <svg className="icon">
+                <use href={`${Sprite}#icon-photo`}></use>
+              </svg>
+            )}
           </AddImage>
+          <FileInput ref={fileInputRef} name="image" />
 
           <FieldWrapper>
             <Field type="text" name="title" placeholder=" " value={title} />
@@ -244,25 +277,8 @@ const AddRecipeForm = () => {
                 </SelectItems>
               )}
             </Selected>
-            <ErrorMessage className="error" component="div" name="category" />
+            <ErrorMessage className="error" component="div" name="time" />
           </FieldWrapper>
-
-          {/* <RadioTitle>Blood type *</RadioTitle>
-              <RadioGroup>
-                <RadioLabel>
-                  <RadioInput type="radio" name="bloodType" value="1" />1
-                </RadioLabel>
-                <RadioLabel>
-                  <RadioInput type="radio" name="bloodType" value="2" />2
-                </RadioLabel>
-                <RadioLabel>
-                  <RadioInput type="radio" name="bloodType" value="3" />3
-                </RadioLabel>
-                <RadioLabel>
-                  <RadioInput type="radio" name="bloodType" value="4" />4
-                </RadioLabel>
-              </RadioGroup>
-              <ErrorMSG component="div" name="bloodType" /> */}
 
           <Title>
             Ingredients
@@ -270,12 +286,20 @@ const AddRecipeForm = () => {
           </Title>
           <Ingredients>
             {newRecipe.ingredients &&
-              newRecipe.ingredients.map((ingredient, index) => (
-                <SelectIngredient key={index} ingredient={ingredient} />
+              newRecipe.ingredients.map((item, index) => (
+                <SelectIngredient key={index} index={index} />
               ))}
           </Ingredients>
 
           <Title>Recipe Preparation</Title>
+          <FieldWrapper className="select">
+            <Field
+              name="instructions"
+              placeholder="Enter recipe"
+              as="textarea"
+              value={instructions}
+            />
+          </FieldWrapper>
 
           <Button className="type5" type="submit">
             Add

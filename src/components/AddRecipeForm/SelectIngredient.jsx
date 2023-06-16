@@ -4,9 +4,58 @@ import {
   SelectIngredientStyled,
 } from './SelectIngredient.styled';
 import Sprite from 'images/sprite.svg';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectNewRecipe } from 'redux/general/selectors';
+import { setNewRecipe } from 'redux/general/slice';
+import { selectFoundIngredients } from 'redux/ingredients/selectors';
+import { searchIngredients } from 'redux/ingredients/operations';
+import { emptyFoundIngredients } from 'redux/ingredients/slice';
+import { measureTypes } from 'constants';
 
-const SelectIngredient = ({ ingredient }) => {
-  const ingredientTypes = ['tbs', 'tsp', 'kg', 'g'];
+const SelectIngredient = ({ index }) => {
+  const dispatch = useDispatch();
+  const newRecipe = useSelector(selectNewRecipe);
+  const ingredients = newRecipe.ingredients.slice();
+  const { searchQuery, ingredient, measure, measureType } = ingredients[index];
+  const foundIngredients = useSelector(selectFoundIngredients);
+  const [measureTypesOpened, setMeasureTypesOpened] = useState(false);
+
+  const removeIngredient = index => {
+    ingredients.splice(index, 1);
+    dispatch(setNewRecipe({ ...newRecipe, ingredients }));
+  };
+
+  const openMeasureTypes = () => {
+    setMeasureTypesOpened(!measureTypesOpened);
+  };
+
+  const setMeasureType = value => {
+    ingredients[index] = {
+      ...ingredients[index],
+      measureType: value,
+    };
+    dispatch(setNewRecipe({ ...newRecipe, ingredients }));
+    setMeasureTypesOpened(false);
+  };
+
+  const findIngredients = () => {
+    if (searchQuery.length >= 2) {
+      dispatch(searchIngredients({ query: searchQuery }));
+    } else {
+      dispatch(emptyFoundIngredients());
+    }
+  };
+
+  const setIngredient = (index, item) => {
+    ingredients[index] = {
+      ...ingredients[index],
+      searchQuery: '',
+      ingredient: item.name,
+      ingredientId: item._id,
+    };
+    dispatch(setNewRecipe({ ...newRecipe, ingredients }));
+  };
 
   return (
     <SelectIngredientStyled>
@@ -14,42 +63,54 @@ const SelectIngredient = ({ ingredient }) => {
         <Field
           className="ingredient"
           type="text"
-          name="ingredient[]"
+          name={`ingredient[${index}]`}
           placeholder=" "
-          value=""
+          value={ingredient}
+          onKeyUp={findIngredients}
         />
-        <Field type="hidden" name="ingredientId[]" placeholder=" " value="" />
+        <Field type="hidden" name="ingredientId" placeholder=" " value="" />
         <svg className="arrow-down">
           <use href={`${Sprite}#icon-arrow-down`}></use>
         </svg>
-      </FieldWrapper>
-      <FieldWrapper>
-        <Field
-          className="measure"
-          type="text"
-          name="measure[]"
-          placeholder=" "
-          value={`${ingredient.measure}`}
-        />
-        <div className="selected">{ingredient.measureType}</div>
-        <svg className="arrow-down">
-          <use href={`${Sprite}#icon-arrow-down`}></use>
-        </svg>
-        {ingredient.modalOpened && (
+        {!!foundIngredients.length && searchQuery && (
           <div className="select">
-            {ingredientTypes.map(ingredientType => (
-              <div
-                className={
-                  ingredient.measureType === ingredientType ? 'active' : ''
-                }
-              >
-                {ingredientType}
+            {foundIngredients.map((item, key) => (
+              <div key={key} onClick={() => setIngredient(index, item)}>
+                {item.name}
               </div>
             ))}
           </div>
         )}
       </FieldWrapper>
-      <svg className="delete">
+      <FieldWrapper>
+        <Field
+          className="measure"
+          type="text"
+          name={`measure[${index}]`}
+          placeholder=" "
+          value={measure}
+        />
+        <div className="selected" onClick={openMeasureTypes}>
+          {measureType}
+        </div>
+        <svg className="arrow-down" onClick={openMeasureTypes}>
+          <use href={`${Sprite}#icon-arrow-down`}></use>
+        </svg>
+        {measureTypesOpened && (
+          <div className="select">
+            {measureTypes.map((type, key) => (
+              <div
+                key={key}
+                className={measureType === type ? 'active' : ''}
+                onClick={() => setMeasureType(type)}
+              >
+                {type}
+              </div>
+            ))}
+          </div>
+        )}
+      </FieldWrapper>
+      <svg className="delete" onClick={() => removeIngredient(index)}>
         <use href={`${Sprite}#icon-delete`}></use>
       </svg>
     </SelectIngredientStyled>

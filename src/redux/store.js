@@ -15,6 +15,8 @@ import { loadingReducer } from './loader/slice';
 import { userReducer } from './user/slice';
 import { generalReducer } from './general/slice';
 import { recipesReducer } from './recipes/slice';
+import { ingredientsReducer } from './ingredients/slice';
+import { ownRecipesReducer } from './ownRecipes/slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -27,6 +29,8 @@ export const store = configureStore({
     auth: persistReducer(authPersistConfig, userReducer),
     general: generalReducer,
     recipes: recipesReducer,
+    ownRecipes: ownRecipesReducer,
+    ingredients: ingredientsReducer,
 
     user: userReducer,
     modalopened: ModalOpenedReducer,

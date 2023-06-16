@@ -6,12 +6,13 @@ export const AddImage = styled.div`
   width: 279px;
   height: 268px;
   margin: 0 auto;
-  background-color: ${colors.color1};
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 32px;
+  background: url(${({ image }) => image}) no-repeat center ${colors.color1};
+  background-size: cover;
 
   & .icon {
     width: 64px;
@@ -91,6 +92,26 @@ export const FieldWrapper = styled.div`
     width: 100%;
     padding-bottom: 4px;
     border-bottom: 1px solid ${colors.color3};
+  }
+
+  & textarea {
+    display: block;
+    width: 100%;
+    height: 154px;
+    outline: none;
+    resize: none;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    padding: 10px 16px;
+    background-color: rgba(${hexToRgb(colors.color17)}, 0.157);
+    transition: border-color 250ms ease-in-out;
+    border-radius: 6px;
+
+    &::placeholder {
+      font-size: 14px;
+      color: rgba(${hexToRgb('#000000')}, 0.5);
+    }
   }
 
   & .error {

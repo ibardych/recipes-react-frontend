@@ -12,7 +12,7 @@ export const SelectIngredientStyled = styled.div`
     outline: none;
     background-color: rgba(${hexToRgb(colors.color17)}, 0.157);
     border-radius: 6px;
-    padding: 16px;
+    padding: 16px 36px 16px 16px;
     font-size: 14px;
     line-height: 1.5;
     letter-spacing: -0.02em;
@@ -62,6 +62,7 @@ export const FieldWrapper = styled.div`
     top: 52px;
     left: 0px;
     width: 100%;
+    max-height: 154px;
     border-radius: 6px;
     background-color: #fff;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.03);

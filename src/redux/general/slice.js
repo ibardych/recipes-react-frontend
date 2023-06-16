@@ -4,7 +4,16 @@ const initialState = {
   themeMode: 'light',
   deviceType: null,
   modalOpened: false,
-  newRecipe: {},
+  newRecipe: {
+    image: '',
+    fileData: '',
+    title: '',
+    description: '',
+    instructions: '',
+    category: '',
+    time: '',
+    ingredients: [],
+  },
 };
 
 const generalSlice = createSlice({
