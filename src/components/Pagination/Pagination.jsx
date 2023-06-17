@@ -1,0 +1,23 @@
+import { useSelector } from 'react-redux';
+import { PaginationStyled, PaginationWrapper } from './Pagination.styled';
+import { selectDeviceType } from 'redux/general/selectors';
+
+export const Paginator = ({ total, page, handlePage }) => {
+  const deviceType = useSelector(selectDeviceType);
+
+  return (
+    total > 1 && (
+      <PaginationWrapper>
+        <PaginationStyled
+          count={total}
+          page={page}
+          siblingCount={2}
+          size={deviceType === 'mobile' ? 'small' : 'medium'}
+          onChange={(_, newPage) => handlePage(newPage)}
+        />
+      </PaginationWrapper>
+    )
+  );
+};
+
+export default Paginator;

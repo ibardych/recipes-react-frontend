@@ -35,3 +35,19 @@ export const container = () => {
     }
   `;
 };
+
+/* revers */
+export const containerr = () => {
+  return `
+    margin: 0 -20px;
+    padding: 0 20px;
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      margin: 0 -32px;
+      padding: 0 32px;
+    }
+
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+    }
+  `;
+};

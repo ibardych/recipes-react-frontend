@@ -4,6 +4,7 @@ const initialState = {
   themeMode: 'light',
   deviceType: null,
   modalOpened: false,
+  modalClosing: false,
   newRecipe: {
     image: '',
     title: '',
@@ -28,9 +29,21 @@ const generalSlice = createSlice({
     setNewRecipe(state, action) {
       state.newRecipe = action.payload;
     },
+    toggleModal(state, action) {
+      state.modalOpened = !state.modalOpened;
+      state.modalClosing = false;
+    },
+    setModalClosing(state, action) {
+      state.modalClosing = true;
+    },
   },
 });
 
-export const { setThemeMode, setDeviceType, setNewRecipe } =
-  generalSlice.actions;
+export const {
+  setThemeMode,
+  setDeviceType,
+  setNewRecipe,
+  toggleModal,
+  setModalClosing,
+} = generalSlice.actions;
 export const generalReducer = generalSlice.reducer;

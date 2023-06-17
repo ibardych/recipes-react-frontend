@@ -15,3 +15,29 @@ export const createOwnRecipe = createAsyncThunk(
     }
   }
 );
+
+export const getOwnRecipes = createAsyncThunk(
+  'own-recipes',
+  async (data, thunkAPI) => {
+    try {
+      const result = await axios.get('/own-recipes', data);
+
+      return result.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const deleteOwnRecipe = createAsyncThunk(
+  'own-recipes/delete',
+  async (recipeId, thunkAPI) => {
+    try {
+      const result = await axios.delete(`/own-recipes/${recipeId}`);
+
+      return result.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);

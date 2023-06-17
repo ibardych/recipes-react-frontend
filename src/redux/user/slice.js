@@ -1,12 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, logIn, logOut, refreshUser } from './operations';
+import {
+  register,
+  logIn,
+  logOut,
+  refreshUser,
+  addIngredientToShoppingList,
+  removeIngredientFromShoppingList,
+  addRecipeToFavorite,
+  removeRecipeFromFavorite,
+  updateUserData,
+} from './operations';
+import { searchFilter } from 'constants';
 
 const initialState = {
   user: {
     email: null,
     username: null,
     avatarURL: null,
+    gravatar: null,
     id: null,
+    shoppingList: [],
+    favoriteRecipeIds: [],
+  },
+  search: {
+    filter: 'title',
+    filterName: 'Title',
+    query: '',
+    recipes: [],
   },
   error: null,
   token: null,
@@ -59,10 +79,45 @@ const userSlice = createSlice({
       })
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
+      })
+      .addCase(addIngredientToShoppingList.fulfilled, (state, action) => {
+        state.user.shoppingList = action.payload.shoppingList;
+      })
+      .addCase(addIngredientToShoppingList.rejected, state => {})
+      .addCase(removeIngredientFromShoppingList.fulfilled, (state, action) => {
+        state.user.shoppingList = action.payload.shoppingList;
+      })
+      .addCase(removeIngredientFromShoppingList.rejected, state => {})
+      .addCase(addRecipeToFavorite.fulfilled, (state, action) => {
+        state.user.favoriteRecipeIds = action.payload.favoriteRecipeIds;
+      })
+      .addCase(addRecipeToFavorite.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(removeRecipeFromFavorite.fulfilled, (state, action) => {
+        state.user.favoriteRecipeIds = action.payload.favoriteRecipeIds;
+      })
+      .addCase(removeRecipeFromFavorite.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        const { avatarURL, username, gravatar } = action.payload;
+        state.user.avatarURL = avatarURL;
+        state.user.username = username;
+        state.user.gravatar = gravatar;
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.error = action.payload;
       });
+  },
+  reducers: {
+    setSearch(state, action) {
+      const search = { ...action.payload };
+      search.filterName = searchFilter[search.filter].name;
+      state.search = search;
+    },
   },
 });
 
-export const { setSelectedDate, setUserData, deleteUserData } =
-  userSlice.actions;
+export const { setSearch } = userSlice.actions;
 export const userReducer = userSlice.reducer;

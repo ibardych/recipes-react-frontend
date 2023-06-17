@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
-import { ModalOpenedReducer } from './modalOpenedSlice';
 import {
   persistStore,
   persistReducer,
@@ -33,7 +32,6 @@ export const store = configureStore({
     ingredients: ingredientsReducer,
 
     user: userReducer,
-    modalopened: ModalOpenedReducer,
     loading: loadingReducer,
   },
   middleware: getDefaultMiddleware =>

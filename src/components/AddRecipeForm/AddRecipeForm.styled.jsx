@@ -102,6 +102,7 @@ export const FieldWrapper = styled.div`
     resize: none;
     border: none;
     font-size: 16px;
+    line-height: 1.4;
     color: #333;
     padding: 10px 16px;
     background-color: rgba(${hexToRgb(colors.color17)}, 0.157);

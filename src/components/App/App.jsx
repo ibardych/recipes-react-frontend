@@ -20,6 +20,11 @@ const LoginPage = lazy(() => import('pages/LoginPage'));
 const MainPage = lazy(() => import('pages/MainPage'));
 const CategoriesPage = lazy(() => import('pages/CategoriesPage'));
 const AddRecipePage = lazy(() => import('pages/AddRecipePage'));
+const MyRecipesPage = lazy(() => import('pages/MyRecipesPage'));
+const RecipePage = lazy(() => import('pages/RecipePage'));
+const ShoppingListPage = lazy(() => import('pages/ShoppingListPage'));
+const SearchPage = lazy(() => import('pages/SearchPage'));
+const FavoritePage = lazy(() => import('pages/FavoritePage'));
 const NotFound = lazy(() => import('../NotFound/NotFound'));
 
 const App = () => {
@@ -126,6 +131,51 @@ const App = () => {
                   <PrivateRoute
                     redirectTo="/signin"
                     component={<AddRecipePage />}
+                  />
+                }
+              />
+              <Route
+                path="my"
+                element={
+                  <PrivateRoute
+                    redirectTo="/signin"
+                    component={<MyRecipesPage />}
+                  />
+                }
+              />
+              <Route
+                path="recipe/:recipeId"
+                element={
+                  <PrivateRoute
+                    redirectTo="/signin"
+                    component={<RecipePage />}
+                  />
+                }
+              />
+              <Route
+                path="shopping-list"
+                element={
+                  <PrivateRoute
+                    redirectTo="/signin"
+                    component={<ShoppingListPage />}
+                  />
+                }
+              />
+              <Route
+                path="search"
+                element={
+                  <PrivateRoute
+                    redirectTo="/signin"
+                    component={<SearchPage />}
+                  />
+                }
+              />
+              <Route
+                path="favorite"
+                element={
+                  <PrivateRoute
+                    redirectTo="/signin"
+                    component={<FavoritePage />}
                   />
                 }
               />

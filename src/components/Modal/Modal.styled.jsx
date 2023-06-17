@@ -3,17 +3,17 @@ import { animation } from 'constants/animation';
 import { mediaSizes } from 'constants/media';
 import { ishidden, transition } from 'helpers';
 
-const headerHeight = '80px';
-
 export const ModalStyled = styled.div`
   position: fixed;
   z-index: 3;
-  top: ${headerHeight};
+  top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - ${headerHeight});
   opacity: 1;
-  ${transition('visible')};
+  ${transition('visible', 'opacity')};
+  ${props => {
+    if (props.modalClosing) return 'opacity: 0';
+  }};
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     height: 100%;
@@ -35,14 +35,12 @@ export const ModalStyled = styled.div`
 
   & .modal {
     position: fixed;
-    top: ${headerHeight};
+    top: 50%;
     left: 50%;
     width: 100%;
-    height: calc(100% - ${headerHeight});
-    transform: translateX(-50%) translateY(0px);
+    transform: translateX(-50%) translateY(-50%);
 
     @media screen and (min-width: ${mediaSizes.tablet}) {
-      top: 50%;
       width: 672px;
       height: auto;
       max-width: calc(100% - 24px * 2);
@@ -70,55 +68,28 @@ export const ModalStyled = styled.div`
   }
 
   & .close {
-    background-color: #eff1f3;
-    width: 100%;
-    height: 40px;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-
     position: absolute;
-    top: 0;
-    right: 0;
-
-    @media screen and (min-width: ${mediaSizes.tablet}) {
-      background-color: transparent;
-      border: none;
-
-      width: 20px;
-      height: 20px;
-      right: 24px;
-      top: 24px;
-      ${transition('transform')}
-
-      &:hover {
-        transform: scale(1.2);
-      }
-
-      &__icon {
-        fill: #000000;
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
-
-  & .return__icon {
-    margin-left: 20px;
-    width: 12px;
-    height: 7px;
-    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    top: 24px;
+    right: 24px;
     ${transition('transform')}
 
     &:hover {
       transform: scale(1.2);
     }
 
+    &__icon {
+      fill: #000000;
+      width: 30px;
+      height: 30px;
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
-      position: absolute;
     }
   }
+
   ${animation}
 `;

@@ -1,15 +1,27 @@
-import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, FormStyled, Input, SearchbarStyled } from './Searchbar.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { findRecipes } from 'redux/recipes/operations';
+import { selectSearch } from 'redux/user/selectors';
+import { setSearch } from 'redux/user/slice';
 
 const Searchbar = () => {
-  const [query, setQuery] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const search = useSelector(selectSearch);
 
   const submitHandler = e => {
     e.preventDefault();
+    if (location.pathname !== '/search') navigate('/search');
+    const { filter, query } = search;
+    dispatch(findRecipes({ filter, query })).then(({ payload }) => {
+      dispatch(setSearch({ ...search, recipes: payload.recipes }));
+    });
   };
 
   const handleInputChange = e => {
-    setQuery(e.target.value);
+    dispatch(setSearch({ ...search, query: e.target.value }));
   };
 
   return (
@@ -18,7 +30,7 @@ const Searchbar = () => {
         <Input
           name="searchQuery"
           type="text"
-          value={query}
+          value={search.query}
           placeholder="Enter the text"
           onChange={handleInputChange}
         />

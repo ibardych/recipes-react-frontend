@@ -20,9 +20,11 @@ import SelectIngredient from './SelectIngredient';
 import { selectNewRecipe } from 'redux/general/selectors';
 import { setNewRecipe } from 'redux/general/slice';
 import { createOwnRecipe } from 'redux/ownRecipes/operations';
+import { useNavigate } from 'react-router-dom';
 
 const AddRecipeForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const categories = useSelector(selectCategories);
   const newRecipe = useSelector(selectNewRecipe);
   const { image, title, description, category, time, instructions } = newRecipe;
@@ -37,6 +39,7 @@ const AddRecipeForm = () => {
       category: '',
       time: '5 min',
       instructions: '',
+      ingredients: [],
     };
   }, []);
 
@@ -78,14 +81,10 @@ const AddRecipeForm = () => {
 
     switch (name) {
       case 'image':
-        const file = e.target.files[0];
-
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          dispatch(setNewRecipe({ ...newRecipe, image: reader.result }));
-          setFile(file);
-        };
-        reader.readAsDataURL(file);
+        const image = e.target.files[0];
+        const imageURL = URL.createObjectURL(image);
+        dispatch(setNewRecipe({ ...newRecipe, image: imageURL }));
+        setFile(image);
         break;
       case 'title':
         dispatch(setNewRecipe({ ...newRecipe, title: value }));
@@ -150,18 +149,30 @@ const AddRecipeForm = () => {
     />
   ));
 
-  const handleSubmit = () => {
+  const handleSubmit = (_, { resetForm }) => {
     const formData = new FormData();
+
+    const newIngredients = ingredients.map(
+      ({ ingredientId, measure, measureType }) => ({
+        id: ingredientId,
+        measure: `${measure} ${measureType}`,
+      })
+    );
+
+    console.log(ingredients);
 
     formData.append('file', file);
     formData.append('title', title);
     formData.append('description', description);
     formData.append('category', category);
     formData.append('time', time);
-    formData.append('ingredients', JSON.stringify(ingredients));
+    formData.append('ingredients', JSON.stringify(newIngredients));
     formData.append('instructions', instructions);
 
     dispatch(createOwnRecipe(formData));
+    resetForm();
+    dispatch(setNewRecipe(initialValues));
+    navigate('/my');
   };
 
   return (
@@ -297,8 +308,6 @@ const AddRecipeForm = () => {
           </Button>
         </Form>
       </Formik>
-
-      <Title>Popular recipe</Title>
     </>
   );
 };

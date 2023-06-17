@@ -69,3 +69,68 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
+
+export const addIngredientToShoppingList = createAsyncThunk(
+  'user/shopping-list/add',
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.post('/shopping-list/add', data);
+
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const removeIngredientFromShoppingList = createAsyncThunk(
+  'user/shopping-list/delete',
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.delete(`/shopping-list/${id}`);
+
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const addRecipeToFavorite = createAsyncThunk(
+  'recipes/favorite/add',
+  async (recipeId, thunkAPI) => {
+    try {
+      const result = await axios.post('/favorite', { recipeId });
+
+      return result.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const removeRecipeFromFavorite = createAsyncThunk(
+  'recipes/favorite/delete',
+  async (recipeId, thunkAPI) => {
+    try {
+      const result = await axios.delete(`/favorite/${recipeId}`);
+
+      return result.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const updateUserData = createAsyncThunk(
+  'user/update',
+  async (data, thunkAPI) => {
+    try {
+      const result = await axios.patch(`/auth/update`, data);
+
+      return result.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
