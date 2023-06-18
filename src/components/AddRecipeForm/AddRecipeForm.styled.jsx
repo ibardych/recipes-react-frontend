@@ -1,6 +1,26 @@
 import styled from '@emotion/styled';
+import { mediaSizes } from 'constants';
 import { colors } from 'constants';
 import { hexToRgb, transition } from 'helpers';
+
+export const AddRecipeFormStyled = styled.div`
+  width: 100%;
+`;
+
+export const TopBlocks = styled.div`
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    display: flex;
+    gap: 32px;
+  }
+  @media screen and (min-width: ${mediaSizes.desktop}) {
+  }
+`;
+
+export const BlockLeft = styled.div``;
+
+export const BlockRight = styled.div`
+  flex-basis: 100%;
+`;
 
 export const AddImage = styled.div`
   width: 279px;
@@ -38,6 +58,10 @@ export const FieldWrapper = styled.div`
     font-weight: 300;
     pointer-events: none;
     color: rgba(${hexToRgb('#000000')}, 0.5);
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      font-size: 16px;
+    }
 
     /* & .star {
       color: $brandcolor;
@@ -85,6 +109,10 @@ export const FieldWrapper = styled.div`
       transform: translateY(0px);
       font-size: 14px;
       opacity: 1;
+
+      @media screen and (min-width: ${mediaSizes.tablet}) {
+        font-size: 16px;
+      }
     }
   }
 
@@ -92,6 +120,10 @@ export const FieldWrapper = styled.div`
     width: 100%;
     padding-bottom: 4px;
     border-bottom: 1px solid ${colors.color3};
+  }
+
+  &.instructions {
+    padding-top: 0;
   }
 
   & textarea {
@@ -109,9 +141,18 @@ export const FieldWrapper = styled.div`
     transition: border-color 250ms ease-in-out;
     border-radius: 6px;
 
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      font-size: 18px;
+      height: 224px;
+    }
+
     &::placeholder {
       font-size: 14px;
-      color: rgba(${hexToRgb('#000000')}, 0.5);
+      color: rgba(0, 0, 0, 0.5);
+
+      @media screen and (min-width: ${mediaSizes.desktop}) {
+        font-size: 18px;
+      }
     }
   }
 
@@ -133,6 +174,10 @@ export const Selected = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    font-size: 14px;
+  }
 
   & .icon {
     width: 20px;
@@ -160,6 +205,24 @@ export const SelectItems = styled.div`
   line-height: 1.5;
   color: rgba(${hexToRgb('#000000')}, 0.5);
   z-index: 1;
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    width: 140px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    gap: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
 
   & .active {
     color: ${colors.color1};

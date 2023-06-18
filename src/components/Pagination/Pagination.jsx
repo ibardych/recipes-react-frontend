@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { PaginationStyled, PaginationWrapper } from './Pagination.styled';
 import { selectDeviceType } from 'redux/general/selectors';
 
-export const Paginator = ({ total, page, handlePage }) => {
+export const Pagination = ({ total, page, handlePage }) => {
   const deviceType = useSelector(selectDeviceType);
 
   return (
@@ -20,4 +20,4 @@ export const Paginator = ({ total, page, handlePage }) => {
   );
 };
 
-export default Paginator;
+export default Pagination;

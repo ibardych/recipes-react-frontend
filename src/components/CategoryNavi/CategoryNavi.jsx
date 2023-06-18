@@ -11,7 +11,7 @@ import { selectDeviceType } from 'redux/general/selectors';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-const CategoryNavi = () => {
+const CategoryNavi = ({ changeCategory }) => {
   const categories = useSelector(selectCategories);
   const deviceType = useSelector(selectDeviceType);
   const [swiper, setSwiper] = useState(null);
@@ -55,7 +55,10 @@ const CategoryNavi = () => {
         >
           {categories.map(category => (
             <SwiperSlide key={category._id} className="slide">
-              <LinkStyled to={`/categories/${category.name}`}>
+              <LinkStyled
+                to={`/categories/${category.name}`}
+                onClick={() => changeCategory()}
+              >
                 {category.name}
               </LinkStyled>
             </SwiperSlide>

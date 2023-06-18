@@ -10,6 +10,7 @@ export const RecipeCardStyled = styled.div`
   display: flex;
   gap: 14px;
   position: relative;
+  width: 100%;
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     padding: 28px 24px;
@@ -47,6 +48,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  flex-basis: 100%;
 `;
 
 export const Title = styled.h2`

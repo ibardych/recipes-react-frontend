@@ -14,8 +14,11 @@ const initialState = {
   error: null,
   isLoading: false,
   recipesMainPage: [],
-  recipesByCategory: [],
   recipe: [],
+  recipesByCategory: {
+    recipes: [],
+    total: null,
+  },
   favoriteRecipes: {
     recipes: [],
     total: null,

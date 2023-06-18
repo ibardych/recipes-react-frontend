@@ -1,4 +1,4 @@
-const hexToRgb = hex => {
+export const hexToRgb = hex => {
   const bigint = parseInt(hex.slice(1), 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
@@ -6,4 +6,9 @@ const hexToRgb = hex => {
   return `${r}, ${g}, ${b}`;
 };
 
-export { hexToRgb };
+export const scrollToTop = (top = 0) => {
+  window.scrollTo({
+    top,
+    behavior: 'smooth',
+  });
+};

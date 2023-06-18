@@ -1,18 +1,14 @@
-import AddRecipeForm from 'components/AddRecipeForm/AddRecipeForm';
-import { Title } from 'components/AddRecipeForm/AddRecipeForm.styled';
-import PopularRecipes from 'components/PopularRecipes/PopularRecipes';
+import AddRecipe from 'components/AddRecipe/AddRecipe';
 import { PageContainer } from 'components/Styled/PageContainer.styled';
 import { PageTitle } from 'components/Styled/PageTitle.styled';
 
-const AddRecipe = () => {
+const AddRecipePage = () => {
   return (
     <PageContainer>
       <PageTitle>Add recipe</PageTitle>
-      <AddRecipeForm />
-      <Title>Popular recipe</Title>
-      <PopularRecipes />
+      <AddRecipe />
     </PageContainer>
   );
 };
 
-export default AddRecipe;
+export default AddRecipePage;

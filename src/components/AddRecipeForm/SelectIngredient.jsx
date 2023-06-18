@@ -12,6 +12,15 @@ import { selectFoundIngredients } from 'redux/ingredients/selectors';
 import { searchIngredients } from 'redux/ingredients/operations';
 import { emptyFoundIngredients } from 'redux/ingredients/slice';
 import { measureTypes } from 'constants';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import { perfectScrollOptions } from 'constants';
+
+const {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} = require('body-scroll-lock');
 
 const SelectIngredient = ({ index }) => {
   const dispatch = useDispatch();
@@ -20,6 +29,20 @@ const SelectIngredient = ({ index }) => {
   const { searchQuery, ingredient, measure, measureType } = ingredients[index];
   const foundIngredients = useSelector(selectFoundIngredients);
   const [measureTypesOpened, setMeasureTypesOpened] = useState(false);
+
+  const options = {
+    reserveScrollBarGap: true,
+  };
+
+  const handleMouseOver = () => {
+    const targetElement = document.body;
+    disableBodyScroll(targetElement, options);
+  };
+
+  const handleMouseOut = () => {
+    const targetElement = document.body;
+    enableBodyScroll(targetElement, options);
+  };
 
   const removeIngredient = index => {
     ingredients.splice(index, 1);
@@ -37,6 +60,7 @@ const SelectIngredient = ({ index }) => {
     };
     dispatch(setNewRecipe({ ...newRecipe, ingredients }));
     setMeasureTypesOpened(false);
+    clearAllBodyScrollLocks();
   };
 
   const findIngredients = () => {
@@ -55,13 +79,13 @@ const SelectIngredient = ({ index }) => {
       ingredientId: item._id,
     };
     dispatch(setNewRecipe({ ...newRecipe, ingredients }));
+    clearAllBodyScrollLocks();
   };
 
   return (
     <SelectIngredientStyled>
-      <FieldWrapper>
+      <FieldWrapper className="ingredient">
         <Field
-          className="ingredient"
           type="text"
           name={`ingredient[${index}]`}
           placeholder=" "
@@ -73,18 +97,23 @@ const SelectIngredient = ({ index }) => {
           <use href={`${Sprite}#icon-arrow-down`}></use>
         </svg>
         {!!foundIngredients.length && searchQuery && (
-          <div className="select">
-            {foundIngredients.map((item, key) => (
-              <div key={key} onClick={() => setIngredient(index, item)}>
-                {item.name}
-              </div>
-            ))}
+          <div
+            className="select"
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            <PerfectScrollbar options={perfectScrollOptions}>
+              {foundIngredients.map((item, key) => (
+                <div key={key} onClick={() => setIngredient(index, item)}>
+                  {item.name}
+                </div>
+              ))}
+            </PerfectScrollbar>
           </div>
         )}
       </FieldWrapper>
-      <FieldWrapper>
+      <FieldWrapper className="measure">
         <Field
-          className="measure"
           type="text"
           name={`measure[${index}]`}
           placeholder=" "
@@ -97,16 +126,22 @@ const SelectIngredient = ({ index }) => {
           <use href={`${Sprite}#icon-arrow-down`}></use>
         </svg>
         {measureTypesOpened && (
-          <div className="select">
-            {measureTypes.map((type, key) => (
-              <div
-                key={key}
-                className={measureType === type ? 'active' : ''}
-                onClick={() => setMeasureType(type)}
-              >
-                {type}
-              </div>
-            ))}
+          <div
+            className="select"
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            <PerfectScrollbar options={perfectScrollOptions}>
+              {measureTypes.map((type, key) => (
+                <div
+                  key={key}
+                  className={measureType === type ? 'active' : ''}
+                  onClick={() => setMeasureType(type)}
+                >
+                  {type}
+                </div>
+              ))}
+            </PerfectScrollbar>
           </div>
         )}
       </FieldWrapper>

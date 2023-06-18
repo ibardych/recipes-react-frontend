@@ -5,9 +5,8 @@ import { RecipesStyled } from './Recipes.styled';
 const Recipes = ({ recipes }) => {
   return (
     <RecipesStyled>
-      {recipes.map(recipe => (
-        <RecipeThumb key={recipe._id} recipe={recipe} />
-      ))}
+      {recipes &&
+        recipes.map(recipe => <RecipeThumb key={recipe._id} recipe={recipe} />)}
     </RecipesStyled>
   );
 };

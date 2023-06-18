@@ -14,7 +14,9 @@ const ownRecipesSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(createOwnRecipe.fulfilled, (state, action) => {
-        state.createdRecipe = action.payload;
+        const recipe = action.payload;
+        state.createdRecipe = recipe;
+        state.recipes.push(recipe);
         state.isLoading = false;
       })
       .addCase(createOwnRecipe.rejected, (state, action) => {

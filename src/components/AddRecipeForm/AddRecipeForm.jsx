@@ -5,11 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import {
   AddImage,
+  AddRecipeFormStyled,
+  BlockLeft,
+  BlockRight,
   FieldWrapper,
   Ingredients,
   SelectItems,
   Selected,
   Title,
+  TopBlocks,
 } from './AddRecipeForm.styled';
 import Sprite from 'images/sprite.svg';
 import { selectCategories } from 'redux/recipes/selectors';
@@ -21,6 +25,13 @@ import { selectNewRecipe } from 'redux/general/selectors';
 import { setNewRecipe } from 'redux/general/slice';
 import { createOwnRecipe } from 'redux/ownRecipes/operations';
 import { useNavigate } from 'react-router-dom';
+import { perfectScrollOptions } from 'constants';
+
+const {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} = require('body-scroll-lock');
 
 const AddRecipeForm = () => {
   const dispatch = useDispatch();
@@ -30,6 +41,20 @@ const AddRecipeForm = () => {
   const { image, title, description, category, time, instructions } = newRecipe;
   const ingredients = newRecipe.ingredients.slice();
   const [file, setFile] = useState(null);
+
+  const options = {
+    reserveScrollBarGap: true,
+  };
+
+  const handleMouseOver = () => {
+    const targetElement = document.body;
+    disableBodyScroll(targetElement, options);
+  };
+
+  const handleMouseOut = () => {
+    const targetElement = document.body;
+    enableBodyScroll(targetElement, options);
+  };
 
   const initialValues = useMemo(() => {
     return {
@@ -123,6 +148,7 @@ const AddRecipeForm = () => {
 
   const selectCategory = category => {
     dispatch(setNewRecipe({ ...newRecipe, category }));
+    clearAllBodyScrollLocks();
   };
 
   const openSelectTime = () => {
@@ -131,6 +157,7 @@ const AddRecipeForm = () => {
 
   const selectTime = time => {
     dispatch(setNewRecipe({ ...newRecipe, time }));
+    clearAllBodyScrollLocks();
   };
 
   const fileInputRef = useRef(null);
@@ -176,111 +203,127 @@ const AddRecipeForm = () => {
   };
 
   return (
-    <>
+    <AddRecipeFormStyled>
       <Formik
         initialValues={initialValues}
         validationSchema={schema}
         onSubmit={handleSubmit}
       >
         <Form autoComplete="off" onChange={handleOnChange}>
-          <AddImage onClick={handleFileClick} image={image}>
-            {!image && (
-              <svg className="icon">
-                <use href={`${Sprite}#icon-photo`}></use>
-              </svg>
-            )}
-          </AddImage>
-          <FileInput ref={fileInputRef} name="image" />
+          <TopBlocks>
+            <BlockLeft>
+              <AddImage onClick={handleFileClick} image={image}>
+                {!image && (
+                  <svg className="icon">
+                    <use href={`${Sprite}#icon-photo`}></use>
+                  </svg>
+                )}
+              </AddImage>
+              <FileInput ref={fileInputRef} name="image" />
+            </BlockLeft>
 
-          <FieldWrapper>
-            <Field type="text" name="title" placeholder=" " value={title} />
-            <label className="label" htmlFor="title">
-              Enter item title
-            </label>
-            <ErrorMessage className="error" component="div" name="title" />
-          </FieldWrapper>
+            <BlockRight>
+              <FieldWrapper>
+                <Field type="text" name="title" placeholder=" " value={title} />
+                <label className="label" htmlFor="title">
+                  Enter item title
+                </label>
+                <ErrorMessage className="error" component="div" name="title" />
+              </FieldWrapper>
 
-          <FieldWrapper>
-            <Field
-              type="text"
-              name="description"
-              placeholder=" "
-              value={description}
-            />
-            <label className="label" htmlFor="description">
-              Enter about recipe *
-            </label>
-            <ErrorMessage
-              className="error"
-              component="div"
-              name="description"
-            />
-          </FieldWrapper>
+              <FieldWrapper>
+                <Field
+                  type="text"
+                  name="description"
+                  placeholder=" "
+                  value={description}
+                />
+                <label className="label" htmlFor="description">
+                  Enter about recipe *
+                </label>
+                <ErrorMessage
+                  className="error"
+                  component="div"
+                  name="description"
+                />
+              </FieldWrapper>
 
-          <FieldWrapper className="select">
-            <Field
-              type="text"
-              name="category"
-              placeholder=" "
-              value={category}
-            />
-            <label className="label" htmlFor="category">
-              Category *
-            </label>
-            <Selected onClick={openSelectCategory}>
-              {category}
-              <svg className="icon">
-                <use href={`${Sprite}#icon-arrow-down`}></use>
-              </svg>
-              {selectCategoryOpened && (
-                <SelectItems>
-                  <PerfectScrollbar>
-                    {categories.map(item => (
-                      <div
-                        key={item._id}
-                        onClick={() => selectCategory(item.name)}
-                        className={item.name === category ? 'active' : ''}
-                      >
-                        {item.name}
-                      </div>
-                    ))}
-                  </PerfectScrollbar>
-                </SelectItems>
-              )}
-            </Selected>
-            <ErrorMessage className="error" component="div" name="category" />
-          </FieldWrapper>
+              <FieldWrapper className="select">
+                <Field
+                  type="text"
+                  name="category"
+                  placeholder=" "
+                  value={category}
+                />
+                <label className="label" htmlFor="category">
+                  Category *
+                </label>
+                <Selected onClick={openSelectCategory}>
+                  {category}
+                  <svg className="icon">
+                    <use href={`${Sprite}#icon-arrow-down`}></use>
+                  </svg>
+                  {selectCategoryOpened && (
+                    <SelectItems
+                      onMouseOver={handleMouseOver}
+                      onMouseOut={handleMouseOut}
+                    >
+                      <PerfectScrollbar options={perfectScrollOptions}>
+                        {categories.map(item => (
+                          <div
+                            key={item._id}
+                            onClick={() => selectCategory(item.name)}
+                            className={item.name === category ? 'active' : ''}
+                          >
+                            {item.name}
+                          </div>
+                        ))}
+                      </PerfectScrollbar>
+                    </SelectItems>
+                  )}
+                </Selected>
+                <ErrorMessage
+                  className="error"
+                  component="div"
+                  name="category"
+                />
+              </FieldWrapper>
 
-          <FieldWrapper className="select">
-            <Field type="text" name="time" placeholder=" " value={time} />
-            <label className="label" htmlFor="time">
-              Cooking time *
-            </label>
-            <Selected onClick={openSelectTime}>
-              {time}
-              <svg className="icon">
-                <use href={`${Sprite}#icon-arrow-down`}></use>
-              </svg>
-              {selectTimeOpened && (
-                <SelectItems>
-                  <PerfectScrollbar>
-                    {Array.from({ length: 24 }, (_, index) => (
-                      <div
-                        key={index}
-                        onClick={() => selectTime(`${(index + 1) * 5} min`)}
-                        className={
-                          `${(index + 1) * 5} min` === time ? 'active' : ''
-                        }
-                      >
-                        {(index + 1) * 5} min
-                      </div>
-                    ))}
-                  </PerfectScrollbar>
-                </SelectItems>
-              )}
-            </Selected>
-            <ErrorMessage className="error" component="div" name="time" />
-          </FieldWrapper>
+              <FieldWrapper className="select">
+                <Field type="text" name="time" placeholder=" " value={time} />
+                <label className="label" htmlFor="time">
+                  Cooking time *
+                </label>
+                <Selected onClick={openSelectTime}>
+                  {time}
+                  <svg className="icon">
+                    <use href={`${Sprite}#icon-arrow-down`}></use>
+                  </svg>
+                  {selectTimeOpened && (
+                    <SelectItems
+                      onMouseOver={handleMouseOver}
+                      onMouseOut={handleMouseOut}
+                    >
+                      <PerfectScrollbar options={perfectScrollOptions}>
+                        {Array.from({ length: 24 }, (_, index) => (
+                          <div
+                            key={index}
+                            onClick={() => selectTime(`${(index + 1) * 5} min`)}
+                            className={
+                              `${(index + 1) * 5} min` === time ? 'active' : ''
+                            }
+                          >
+                            {(index + 1) * 5} min
+                          </div>
+                        ))}
+                      </PerfectScrollbar>
+                    </SelectItems>
+                  )}
+                </Selected>
+                <ErrorMessage className="error" component="div" name="time" />
+              </FieldWrapper>
+            </BlockRight>
+          </TopBlocks>
 
           <Title>
             Ingredients
@@ -294,7 +337,7 @@ const AddRecipeForm = () => {
           </Ingredients>
 
           <Title>Recipe Preparation</Title>
-          <FieldWrapper className="select">
+          <FieldWrapper className="instructions">
             <Field
               name="instructions"
               placeholder="Enter recipe"
@@ -308,7 +351,7 @@ const AddRecipeForm = () => {
           </Button>
         </Form>
       </Formik>
-    </>
+    </AddRecipeFormStyled>
   );
 };
 

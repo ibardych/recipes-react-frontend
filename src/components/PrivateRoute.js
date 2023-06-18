@@ -8,5 +8,14 @@ export const PrivateRoute = ({ component: Component, redirectTo = '/' }) => {
 
   const shouldRedirect = !isLoggedIn && !isRefreshing;
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  scrollToTop();
+
   return shouldRedirect ? <Navigate to={redirectTo} /> : Component;
 };

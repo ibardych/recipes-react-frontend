@@ -6,7 +6,7 @@ import { container, hexToRgb, transition } from 'helpers';
 import { NavLink } from 'react-router-dom';
 import Logo from 'images/logo.footer.svg';
 
-export const FooterCopyright = styled.footer`
+export const FooterCopyright = styled.div`
   /* position: fixed; */
   width: 100%;
   left: 0;
@@ -14,10 +14,10 @@ export const FooterCopyright = styled.footer`
   padding-top: 15px;
   padding-bottom: 15px;
   margin-top: 100px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
   @media screen and (min-width: ${mediaSizes.desktop}) {
-    margin-top: 200px;
+    margin-top: 30px;
   }
 
   & ul {
