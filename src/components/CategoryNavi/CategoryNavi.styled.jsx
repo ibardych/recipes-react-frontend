@@ -39,6 +39,31 @@ export const CategoryNaviStyled = styled.div`
   & .slide {
     width: auto;
   }
+
+  & .swiper-button {
+    top: 18px;
+    color: #dcdcdc;
+    &::after {
+      font-size: 18px;
+    }
+
+    &.prev {
+      left: -26px;
+      @media screen and (min-width: ${mediaSizes.desktop}) {
+        left: -30px;
+      }
+    }
+    &.next {
+      right: -26px;
+      @media screen and (min-width: ${mediaSizes.desktop}) {
+        right: -30px;
+      }
+    }
+  }
+
+  & .swiper-button-disabled {
+    display: none;
+  }
 `;
 
 export const LinkStyled = styled(NavLink)`

@@ -22,12 +22,6 @@ const initialState = {
     shoppingList: [],
     favoriteRecipeIds: [],
   },
-  search: {
-    filter: 'title',
-    filterName: 'Title',
-    query: '',
-    recipes: [],
-  },
   error: null,
   token: null,
   isRefreshing: true,
@@ -110,14 +104,6 @@ const userSlice = createSlice({
         state.error = action.payload;
       });
   },
-  reducers: {
-    setSearch(state, action) {
-      const search = { ...action.payload };
-      search.filterName = searchFilter[search.filter].name;
-      state.search = search;
-    },
-  },
 });
 
-export const { setSearch } = userSlice.actions;
 export const userReducer = userSlice.reducer;

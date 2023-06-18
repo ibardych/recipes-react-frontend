@@ -1,8 +1,7 @@
 import { ModalStyled } from './Modal.styled';
 import { IoMdClose } from 'react-icons/io';
-import { ReactComponent as BackArrow } from 'images/backarrow.svg';
 import { createPortal } from 'react-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectModalClosing, selectModalOpened } from 'redux/general/selectors';
 import { setModalClosing, toggleModal } from 'redux/general/slice';

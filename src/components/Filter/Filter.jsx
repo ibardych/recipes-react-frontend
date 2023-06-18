@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { Active, FilterStyled, Item, Modal, Wrapper } from './Filter.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSearch } from 'redux/user/selectors';
-import { setSearch } from 'redux/user/slice';
 import { searchFilter } from 'constants';
+import { setSearchData } from 'redux/recipes/slice';
+import { selectSearchRecipes } from 'redux/recipes/selectors';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const search = useSelector(selectSearch);
+  const search = useSelector(selectSearchRecipes);
   const [modalOpened, setModalOpened] = useState(false);
 
   const setFilter = filter => {
-    dispatch(setSearch({ ...search, filter }));
+    const filterName = searchFilter[filter].name;
+    dispatch(setSearchData({ filter, filterName }));
     setModalOpened(false);
   };
 

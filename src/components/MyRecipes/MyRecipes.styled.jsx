@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { mediaSizes } from 'constants';
 
-export const RecipeCardListStyled = styled.div`
+export const MyRecipesStyled = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
@@ -10,11 +10,4 @@ export const RecipeCardListStyled = styled.div`
   }
   @media screen and (min-width: ${mediaSizes.desktop}) {
   }
-`;
-
-export const RecipeCard = styled.div`
-  flex-basis: 100%;
-  background-color: #fff;
-  padding: 14px 9px;
-  border-radius: 8px;
 `;

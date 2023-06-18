@@ -58,8 +58,12 @@ export const getRecipeById = createAsyncThunk(
 export const findRecipes = createAsyncThunk(
   'recipes/search',
   async (data, thunkAPI) => {
+    const { page, limit } = data;
     try {
-      const result = await axios.post(`/search?page=1&limit=8`, data);
+      const result = await axios.post(
+        `/search?page=${page}&limit=${limit}`,
+        data
+      );
 
       return result.data;
     } catch (error) {

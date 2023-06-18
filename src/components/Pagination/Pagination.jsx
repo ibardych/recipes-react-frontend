@@ -11,7 +11,7 @@ export const Paginator = ({ total, page, handlePage }) => {
         <PaginationStyled
           count={total}
           page={page}
-          siblingCount={2}
+          siblingCount={deviceType === 'mobile' ? 1 : 2}
           size={deviceType === 'mobile' ? 'small' : 'medium'}
           onChange={(_, newPage) => handlePage(newPage)}
         />

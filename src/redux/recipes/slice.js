@@ -24,6 +24,13 @@ const initialState = {
     recipes: [],
     total: null,
   },
+  searchRecipes: {
+    filter: 'title',
+    filterName: 'Title',
+    query: '',
+    recipes: [],
+    total: null,
+  },
 };
 
 const recipesSlice = createSlice({
@@ -67,7 +74,11 @@ const recipesSlice = createSlice({
       .addCase(getRecipeById.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(findRecipes.fulfilled, (state, action) => {})
+      .addCase(findRecipes.fulfilled, (state, action) => {
+        const { recipes, total } = action.payload;
+        state.searchRecipes.recipes = recipes;
+        state.searchRecipes.total = total;
+      })
       .addCase(findRecipes.rejected, (state, action) => {
         state.error = action.payload;
       })
@@ -84,6 +95,12 @@ const recipesSlice = createSlice({
         state.error = action.payload;
       });
   },
+  reducers: {
+    setSearchData(state, action) {
+      state.searchRecipes = { ...state.searchRecipes, ...action.payload };
+    },
+  },
 });
 
+export const { setSearchData } = recipesSlice.actions;
 export const recipesReducer = recipesSlice.reducer;

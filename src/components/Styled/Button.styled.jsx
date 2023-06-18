@@ -87,6 +87,27 @@ export const Button = styled.button`
     }
   }
 
+  &.type6 {
+    color: ${colors.color7};
+    background: ${colors.color8};
+    padding: 6px 14px;
+    font-size: 10px;
+    line-height: 1.5;
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      font-size: 14px;
+      padding: 12px 32px;
+    }
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      font-size: 16px;
+      padding: 14px 38px;
+    }
+
+    &:hover {
+      background: ${colors.color1};
+    }
+  }
+
   &.totop {
     position: fixed;
     z-index: 3;

@@ -3,8 +3,8 @@ import { FavoriteRecipesStyled } from './FavoriteRecipes.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFavoriteRecipes } from 'redux/recipes/selectors';
 import { getFavoriteRecipes } from 'redux/recipes/operations';
-import RecipeCard from 'components/Recipes/ResipeCard';
-import Paginator from 'components/Pagination/Pagination';
+import RecipeCard from 'components/Recipes/RecipeCard';
+import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
 
 const FavoriteRecipes = () => {
@@ -31,7 +31,7 @@ const FavoriteRecipes = () => {
           ))}
       </FavoriteRecipesStyled>
       {recipes && (
-        <Paginator
+        <Pagination
           total={Math.ceil(total / limit)}
           page={page}
           handlePage={handlePage}
