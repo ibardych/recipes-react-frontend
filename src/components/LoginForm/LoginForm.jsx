@@ -29,18 +29,18 @@ export const LoginForm = () => {
       .min(3)
       .max(254)
       .required('Email is a required field'),
-    password: yup.string().required('Password is a required field'),
+    password: yup.string().required('Password is a required field').min(8),
   });
 
   const initialValues = { email: '', password: '' };
 
+  const onClickHandler = () => {
+    setPasswordShown(state => !state);
+  };
+
   const handleSubmit = (values, { resetForm }) => {
     dispatch(logIn(values));
     //if (!message) resetForm();
-  };
-
-  const onClickHandler = () => {
-    setPasswordShown(state => !state);
   };
 
   return (
@@ -50,47 +50,104 @@ export const LoginForm = () => {
         validationSchema={schema}
         onSubmit={handleSubmit}
       >
-        <Form autoComplete="off" className="form">
-          <Caption>Login</Caption>
-          <FormFields>
-            <InputWraper>
-              <Field
-                type="text"
-                name="email"
-                placeholder=" "
-                autoComplete="off"
-              />
-              <label htmlFor="email">Email *</label>
-              <ErrorMessage className="error" component="div" name="email" />
-              <svg className="icon">
-                <use href={`${Sprite}#icon-mail`}></use>
-              </svg>
-            </InputWraper>
+        {({ errors, touched, isSubmitting, submitCount }) => {
+          const hasEmailError =
+            submitCount > 0 && touched.email && errors.email;
+          const hasPasswordError =
+            submitCount > 0 && touched.password && errors.password;
+          const isFormSubmitted = submitCount > 0;
 
-            <InputWraper>
-              <Field
-                type={passwordShown ? 'text' : 'password'}
-                name="password"
-                placeholder=" "
-                autoComplete="off"
-              />
-              <label htmlFor="password">Password *</label>
-              <ShowPassword
-                clickHandler={onClickHandler}
-                isShown={passwordShown}
-              />
-              <ErrorMessage className="error" component="div" name="password" />
-              <svg className="icon">
-                <use href={`${Sprite}#icon-lock`}></use>
-              </svg>
-            </InputWraper>
-          </FormFields>
-          <ButtonContainer>
-            <Button className="type2" type="submit">
-              Sign In
-            </Button>
-          </ButtonContainer>
-        </Form>
+          return (
+            <Form autoComplete="off" className="form">
+              <Caption>Sign in</Caption>
+              <FormFields>
+                <InputWraper
+                  className={
+                    hasEmailError ? 'error' : isFormSubmitted ? 'success' : ''
+                  }
+                >
+                  <Field
+                    type="text"
+                    name="email"
+                    placeholder=" "
+                    autoComplete="off"
+                  />
+                  <label htmlFor="email">Email *</label>
+                  {hasEmailError && (
+                    <ErrorMessage
+                      className="error"
+                      component="div"
+                      name="email"
+                    />
+                  )}
+                  <svg className="icon">
+                    <use href={`${Sprite}#icon-mail`}></use>
+                  </svg>
+                  {hasEmailError && (
+                    <svg className="icon-error">
+                      <use href={`${Sprite}#icon-error`}></use>
+                    </svg>
+                  )}
+                  {!hasEmailError && isFormSubmitted && (
+                    <svg className="icon-success">
+                      <use href={`${Sprite}#icon-success`}></use>
+                    </svg>
+                  )}
+                </InputWraper>
+
+                <InputWraper
+                  className={
+                    hasPasswordError
+                      ? 'error'
+                      : isFormSubmitted
+                      ? 'success'
+                      : ''
+                  }
+                >
+                  <Field
+                    type={passwordShown ? 'text' : 'password'}
+                    name="password"
+                    placeholder=" "
+                    autoComplete="off"
+                  />
+                  <label htmlFor="password">Password *</label>
+
+                  {!hasPasswordError && !isFormSubmitted && (
+                    <ShowPassword
+                      clickHandler={onClickHandler}
+                      isShown={passwordShown}
+                    />
+                  )}
+                  {hasPasswordError && (
+                    <ErrorMessage
+                      className="error"
+                      component="div"
+                      name="password"
+                    />
+                  )}
+                  <svg className="icon">
+                    <use href={`${Sprite}#icon-lock`}></use>
+                  </svg>
+                  {hasPasswordError && (
+                    <svg className="icon-error">
+                      <use href={`${Sprite}#icon-error`}></use>
+                    </svg>
+                  )}
+                  {!hasPasswordError && isFormSubmitted && (
+                    <svg className="icon-success">
+                      <use href={`${Sprite}#icon-success`}></use>
+                    </svg>
+                  )}
+                </InputWraper>
+              </FormFields>
+              <ButtonContainer>
+                <Button className="type2 button" type="submit">
+                  Sign In
+                </Button>
+              </ButtonContainer>
+            </Form>
+          );
+        }}
       </Formik>
       {message && <Message>{message}</Message>}
       <BottomLink to="/register">Registration</BottomLink>

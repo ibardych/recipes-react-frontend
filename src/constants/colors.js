@@ -16,4 +16,5 @@ export const colors = Object.freeze({
   color15: '#3E4462',
   color16: '#001833',
   color17: '#D9D9D9',
+  color18: '#3CBC81',
 });

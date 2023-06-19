@@ -33,6 +33,10 @@ const generalSlice = createSlice({
       state.modalOpened = !state.modalOpened;
       state.modalClosing = false;
     },
+    setModalOpened(state, action) {
+      state.modalOpened = action.payload;
+      state.modalClosing = false;
+    },
     setModalClosing(state, action) {
       state.modalClosing = true;
     },
@@ -44,6 +48,7 @@ export const {
   setDeviceType,
   setNewRecipe,
   toggleModal,
+  setModalOpened,
   setModalClosing,
 } = generalSlice.actions;
 export const generalReducer = generalSlice.reducer;

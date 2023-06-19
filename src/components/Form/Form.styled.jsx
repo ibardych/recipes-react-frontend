@@ -13,8 +13,9 @@ export const Caption = styled.h1`
   color: ${colors.color7};
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
-    margin-top: 160px;
     text-align: left;
+    margin-bottom: 50px;
+    font-size: 28px;
   }
 `;
 
@@ -40,6 +41,14 @@ export const ButtonContainer = styled.div`
     flex-direction: row;
     gap: 32px;
   }
+
+  & .button {
+    height: 45px;
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      height: 56px;
+    }
+  }
 `;
 
 export const BottomLink = styled(NavLink)`
@@ -49,4 +58,13 @@ export const BottomLink = styled(NavLink)`
   margin-top: 18px;
   text-decoration: underline;
   font-weight: 400;
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    font-size: 16px;
+  }
+
+  @media screen and (min-width: ${mediaSizes.desktop}) {
+    position: relative;
+    left: 183px;
+  }
 `;

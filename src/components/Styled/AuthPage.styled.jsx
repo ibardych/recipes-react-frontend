@@ -31,6 +31,17 @@ export const AuthPageStyled = styled.div`
     width: 3000px;
     background-color: ${colors.color7};
     z-index: 0;
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      height: 2500px;
+      width: 2500px;
+      top: 500px;
+    }
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      height: 7500px;
+      width: 7500px;
+      top: 600px;
+    }
   }
 
   & img.bg {
@@ -41,5 +52,14 @@ export const AuthPageStyled = styled.div`
     height: 250px;
     width: auto;
     z-index: 1;
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      top: 98px;
+      height: 359px;
+    }
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      transform: translateX(-500px);
+      top: 315px;
+    }
   }
 `;

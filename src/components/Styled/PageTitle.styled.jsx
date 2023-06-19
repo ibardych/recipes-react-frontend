@@ -15,3 +15,18 @@ export const PageTitle = styled.h1`
   @media screen and (min-width: ${mediaSizes.desktop}) {
   }
 `;
+
+export const PageSubTitle = styled.h2`
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.24px;
+  color: ${colors.color15};
+  margin-bottom: 28px;
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    margin-bottom: 32px;
+  }
+  @media screen and (min-width: ${mediaSizes.desktop}) {
+  }
+`;

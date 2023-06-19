@@ -11,6 +11,7 @@ import {
 } from 'redux/recipes/selectors';
 import { CategoryRecipesStyled } from './CategoryRecipes.styled';
 import { scrollToTop } from 'helpers';
+import { LoaderSmall } from 'components/Loader/Loader';
 
 const CategoryRecipes = ({ resetePage, setResetPage }) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const CategoryRecipes = ({ resetePage, setResetPage }) => {
   let { category } = useParams();
   const [page, setPage] = useState(1);
   const [limit] = useState(8);
+  const loading = useSelector(state => state.recipes.recipesByCategoryLoading);
 
   useEffect(() => {
     if (resetePage) {
@@ -55,9 +57,13 @@ const CategoryRecipes = ({ resetePage, setResetPage }) => {
   return (
     <>
       <CategoryRecipesStyled>
-        <Recipes recipes={recipes} />
+        {loading ? (
+          <LoaderSmall scale="1" name="" top="100px" />
+        ) : (
+          recipes && <Recipes recipes={recipes} />
+        )}
       </CategoryRecipesStyled>
-      {recipes && (
+      {!loading && recipes && (
         <Pagination
           total={Math.ceil(total / limit)}
           page={page}

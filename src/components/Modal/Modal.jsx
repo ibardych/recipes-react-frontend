@@ -1,14 +1,14 @@
 import { ModalStyled } from './Modal.styled';
-import { IoMdClose } from 'react-icons/io';
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectModalClosing, selectModalOpened } from 'redux/general/selectors';
 import { setModalClosing, toggleModal } from 'redux/general/slice';
+import Sprite from 'images/sprite.svg';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ children }) => {
+const Modal = ({ handleClose, children }) => {
   const dispatch = useDispatch();
   const modalOpened = useSelector(selectModalOpened);
   const modalClosing = useSelector(selectModalClosing);
@@ -25,6 +25,7 @@ const Modal = ({ children }) => {
     dispatch(setModalClosing());
     setTimeout(() => {
       dispatch(toggleModal());
+      handleClose();
     }, 200);
   };
 
@@ -46,7 +47,9 @@ const Modal = ({ children }) => {
       <div className="modal">
         <div className="inner">
           <button type="buttn" className="close" onClick={closeModal}>
-            <IoMdClose className="close__icon" />
+            <svg className="close__icon">
+              <use href={`${Sprite}#icon-close`}></use>
+            </svg>
           </button>
           <div className="text">{children}</div>
         </div>

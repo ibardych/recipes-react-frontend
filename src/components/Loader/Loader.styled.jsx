@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Triangle } from 'react-loader-spinner';
-import img from 'images/strawberry-small.png';
+import { mediaSizes } from 'constants';
+import { colors } from 'constants';
 
 export const LoaderStyled = styled.div`
   position: fixed;
@@ -13,71 +13,177 @@ export const LoaderStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(255 255 255 / 65%);
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: inner 0px 0px 200px 10px ${colors.color1};
+
+  body.dark-theme & {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  & .lds-ripple {
+    display: inline-block;
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 100px;
+  }
+  & .lds-ripple div {
+    position: absolute;
+    border: 4px solid ${colors.color1};
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  & .lds-ripple div:nth-of-type(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes lds-ripple {
+    0% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    4.9% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    5% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      left: 0px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
+    }
+  }
 `;
 
 export const LoaderContainer = styled.div`
   position: relative;
-  height: 100px;
-  width: 100px;
-`;
-
-export const StyledTriangle = styled(Triangle)`
+  height: 200px;
+  width: 200px;
   display: flex;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-export const Img = styled.img`
-  width: 50px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-55%, -18%);
-  max-width: initial;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const LoaderSmallStyled = styled.div`
-  margin: 0 auto;
-  width: 47px;
-  height: 49px;
-  background: url(${img}) no-repeat center;
-  background-size: contain;
-  animation: spin 1.5s infinite linear;
+  height: 0px;
+  width: 0px;
+  transform: scale(${({ scale }) => scale});
+  position: relative;
+  left: ${({ left }) => left};
+  top: ${({ top }) => top};
 
-  &.eatenProducts {
-    margin: 50px auto;
-  }
-
-  &.deleteProduct {
+  &.ingredient {
     position: absolute;
-    right: -2px;
-    top: -4px;
-    width: 30px;
-    height: 30px;
+    right: 22px;
+    left: auto;
+    top: 50%;
+    transform: scale(0.3) translateY(-50%);
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      right: 32px;
+      transform: scale(0.4) translateY(-50%);
+    }
   }
 
-  &.addProduct {
+  &.shoppinglist {
     position: absolute;
-    right: -42px;
-    top: 16px;
-    width: 30px;
-    height: 30px;
+    right: 16px;
+    left: auto;
+    top: 30px;
+    transform: scale(0.3) translateY(-50%);
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      right: 32px;
+      top: 49px;
+      transform: scale(0.4) translateY(-50%);
+    }
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      right: 34px;
+      top: 59px;
+    }
   }
 
-  &.addProductMobile {
-    width: 30px;
-    height: 30px;
-    margin-top: -30px;
+  & div {
+    animation: rotate 1s infinite;
+    height: 50px;
+    width: 50px;
     position: relative;
-    top: 40px;
-  }
+    left: -25px;
+    top: -25px;
 
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      height: 20px;
+      width: 20px;
+    }
+    &:before {
+      animation: box1 1s infinite;
+      background-color: ${colors.color1};
+      box-shadow: 30px 0 0 ${colors.color1};
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    &:after {
+      animation: box2 1s infinite;
+      background-color: ${colors.color1};
+      box-shadow: 30px 0 0 ${colors.color1};
+      border-radius: 4px;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg) scale(0.8);
+      }
+      50% {
+        transform: rotate(360deg) scale(1.2);
+      }
+      100% {
+        transform: rotate(720deg) scale(0.8);
+      }
+    }
+
+    @keyframes box1 {
+      0% {
+        box-shadow: 30px 0 0 ${colors.color1};
+      }
+      50% {
+        box-shadow: 0 0 0 ${colors.color1};
+        margin-bottom: 0;
+        transform: translate(15px, 15px);
+      }
+      100% {
+        box-shadow: 30px 0 0 ${colors.color1};
+        margin-bottom: 10px;
+      }
+    }
+
+    @keyframes box2 {
+      0% {
+        box-shadow: 30px 0 0 ${colors.color1};
+      }
+      50% {
+        box-shadow: 0 0 0 ${colors.color1};
+        margin-top: -20px;
+        transform: translate(15px, 15px);
+      }
+      100% {
+        box-shadow: 30px 0 0 ${colors.color1};
+        margin-top: 0;
+      }
     }
   }
 `;

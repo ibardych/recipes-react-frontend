@@ -13,7 +13,7 @@ import {
   SliderWrapper,
 } from './Category.styled';
 
-const Category = ({ categoryName, category, last }) => {
+const Category = ({ categoryName, category, last, index }) => {
   const navigate = useNavigate();
   const deviceType = useSelector(selectDeviceType);
 
@@ -42,12 +42,12 @@ const Category = ({ categoryName, category, last }) => {
           slidesPerGroup={slidesPerGroup}
           className="slider"
           modules={[Mousewheel, Keyboard, Navigation]}
-          mousewheel={true}
-          keyboard={true}
+          mousewheel={false}
+          keyboard={false}
           navigation={{
-            prevEl: '.swiper-button-prev',
-            nextEl: '.swiper-button-next',
-            disabledClass: 'swiper-button-disabled',
+            prevEl: `.swiper-button-prev-${index}`,
+            nextEl: `.swiper-button-next-${index}`,
+            disabledClass: `swiper-button-disabled`,
           }}
         >
           {category.map(recipe => (
@@ -56,8 +56,12 @@ const Category = ({ categoryName, category, last }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="swiper-button-prev swiper-button prev"></div>
-        <div className="swiper-button-next swiper-button next"></div>
+        <div
+          className={`swiper-button-prev swiper-button-prev-${index} swiper-button prev`}
+        ></div>
+        <div
+          className={`swiper-button-next swiper-button-next-${index} swiper-button next`}
+        ></div>
       </SliderWrapper>
       <Button className="type3 all" onClick={() => showAll(categoryName)}>
         See all

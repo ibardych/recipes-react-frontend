@@ -3,7 +3,7 @@ import { mediaSizes } from 'constants';
 import { container } from 'helpers';
 
 export const PageContainer = styled.div`
-  ${container};
+  ${({ type }) => (type === 'full' ? '' : container)};
   padding-top: 30px;
 
   @media screen and (min-width: ${mediaSizes.tablet}) {

@@ -14,6 +14,7 @@ import {
 import { selectFavoriteRecipeIds } from 'redux/user/selectors';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Sprite from 'images/sprite.svg';
 
 const RecipeHeader = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,12 @@ const RecipeHeader = () => {
       <Button type="button" className="type4" onClick={handleFavorite}>
         {favorite ? 'Remove from favorite recipes' : 'Add to favorite recipes'}
       </Button>
-      <RecipeTime>{recipe.time}</RecipeTime>
+      <RecipeTime>
+        <svg className="icon">
+          <use href={`${Sprite}#icon-clock`}></use>
+        </svg>
+        {recipe.time}
+      </RecipeTime>
     </RecipeHeaderStyled>
   );
 };

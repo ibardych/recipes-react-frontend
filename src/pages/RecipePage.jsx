@@ -3,7 +3,7 @@ import { PageContainer } from 'components/Styled/PageContainer.styled';
 
 const Recipe = () => {
   return (
-    <PageContainer>
+    <PageContainer type="full">
       <RecipeFull />
     </PageContainer>
   );

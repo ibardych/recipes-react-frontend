@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register } from 'redux/user/operations';
+import { logIn, logOut, register } from 'redux/user/operations';
 
 const loadingSlice = createSlice({
   name: 'loading',
@@ -14,6 +14,24 @@ const loadingSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(register.rejected, state => {
+      state.isLoading = false;
+    });
+    builder.addCase(logIn.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(logIn.fulfilled, state => {
+      state.isLoading = false;
+    });
+    builder.addCase(logIn.rejected, state => {
+      state.isLoading = false;
+    });
+    builder.addCase(logOut.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(logOut.fulfilled, state => {
+      state.isLoading = false;
+    });
+    builder.addCase(logOut.rejected, state => {
       state.isLoading = false;
     });
   },

@@ -29,6 +29,10 @@ export const Button = styled.button`
     background: ${colors.color8};
   }
 
+  &:focus {
+    background: ${colors.color1};
+  }
+
   & .icon {
     stroke: #fff;
     fill: transparent;
@@ -46,6 +50,9 @@ export const Button = styled.button`
     &:hover {
       color: ${colors.color1};
       border: 2px solid ${colors.color1};
+    }
+    &:focus {
+      background: transparent;
     }
   }
 
@@ -77,6 +84,9 @@ export const Button = styled.button`
       color: ${colors.color1};
       border: 2px solid ${colors.color1};
     }
+    &:focus {
+      background: transparent;
+    }
   }
 
   &.type5 {
@@ -85,6 +95,9 @@ export const Button = styled.button`
 
     &:hover {
       background: ${colors.color1};
+    }
+    &:focus {
+      background: ${colors.color8};
     }
   }
 
@@ -106,6 +119,18 @@ export const Button = styled.button`
 
     &:hover {
       background: ${colors.color1};
+    }
+    &:focus {
+      background: ${colors.color8};
+    }
+  }
+
+  &.grey {
+    background-color: #d9d9d9;
+    color: ${colors.color14};
+
+    &:focus {
+      background: #d9d9d9;
     }
   }
 
@@ -171,6 +196,10 @@ export const ButtonLink = styled(NavLink)`
     background: ${colors.color8};
   }
 
+  &:focus {
+    background: ${colors.color1};
+  }
+
   & .icon {
     stroke: #fff;
     fill: transparent;
@@ -188,6 +217,9 @@ export const ButtonLink = styled(NavLink)`
     &:hover {
       color: ${colors.color1};
       border: 2px solid ${colors.color1};
+    }
+    &:focus {
+      background: transparent;
     }
   }
 
@@ -219,6 +251,9 @@ export const ButtonLink = styled(NavLink)`
       color: ${colors.color1};
       border: 2px solid ${colors.color1};
     }
+    &:focus {
+      background: transparent;
+    }
   }
 
   &.type5 {
@@ -227,6 +262,9 @@ export const ButtonLink = styled(NavLink)`
 
     &:hover {
       background: ${colors.color1};
+    }
+    &:focus {
+      background: ${colors.color8};
     }
   }
 
@@ -248,6 +286,18 @@ export const ButtonLink = styled(NavLink)`
 
     &:hover {
       background: ${colors.color1};
+    }
+    &:focus {
+      background: ${colors.color8};
+    }
+  }
+
+  &.grey {
+    background-color: #d9d9d9;
+    color: ${colors.color14};
+
+    &:focus {
+      background: #d9d9d9;
     }
   }
 

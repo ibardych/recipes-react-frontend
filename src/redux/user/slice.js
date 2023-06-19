@@ -10,15 +10,14 @@ import {
   removeRecipeFromFavorite,
   updateUserData,
 } from './operations';
-import { searchFilter } from 'constants';
 
 const initialState = {
   user: {
+    id: null,
     email: null,
     username: null,
     avatarURL: null,
     gravatar: null,
-    id: null,
     shoppingList: [],
     favoriteRecipeIds: [],
   },
@@ -27,6 +26,8 @@ const initialState = {
   isRefreshing: true,
   isLoggedIn: false,
   authError: null,
+  updateUserDataLoading: false,
+  toggeIngredientLoading: [],
 };
 
 const userSlice = createSlice({
@@ -35,7 +36,7 @@ const userSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        const { token, user } = action.payload.user;
+        const { token, user } = action.payload;
         state.user.id = user.id;
         state.user.username = user.username;
         state.user.email = user.email;
@@ -74,10 +75,12 @@ const userSlice = createSlice({
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       })
+      .addCase(addIngredientToShoppingList.pending, state => {})
       .addCase(addIngredientToShoppingList.fulfilled, (state, action) => {
         state.user.shoppingList = action.payload.shoppingList;
       })
       .addCase(addIngredientToShoppingList.rejected, state => {})
+      .addCase(removeIngredientFromShoppingList.pending, state => {})
       .addCase(removeIngredientFromShoppingList.fulfilled, (state, action) => {
         state.user.shoppingList = action.payload.shoppingList;
       })
@@ -94,16 +97,27 @@ const userSlice = createSlice({
       .addCase(removeRecipeFromFavorite.rejected, (state, action) => {
         state.error = action.payload;
       })
+      .addCase(updateUserData.pending, (state, action) => {
+        state.updateUserDataLoading = true;
+      })
       .addCase(updateUserData.fulfilled, (state, action) => {
         const { avatarURL, username, gravatar } = action.payload;
         state.user.avatarURL = avatarURL;
         state.user.username = username;
         state.user.gravatar = gravatar;
+        state.updateUserDataLoading = false;
       })
       .addCase(updateUserData.rejected, (state, action) => {
         state.error = action.payload;
       });
   },
+  reducers: {
+    setIngredientLoading(state, action) {
+      const ingredientId = action.payload;
+      state.toggeIngredientLoading = ingredientId;
+    },
+  },
 });
 
+export const { setIngredientLoading } = userSlice.actions;
 export const userReducer = userSlice.reducer;

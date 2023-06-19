@@ -11,14 +11,18 @@ import {
 
 const initialState = {
   categories: [],
+  categoriesLoading: false,
   error: null,
   isLoading: false,
   recipesMainPage: [],
+  recipesMainPageLoading: [],
   recipe: [],
+  recipeLoading: false,
   recipesByCategory: {
     recipes: [],
     total: null,
   },
+  recipesByCategoryLoading: false,
   favoriteRecipes: {
     recipes: [],
     total: null,
@@ -41,25 +45,41 @@ const recipesSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
+      .addCase(getCategories.pending, (state, action) => {
+        state.categoriesLoading = true;
+      })
       .addCase(getCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
-        state.isLoading = false;
+        state.categoriesLoading = false;
       })
       .addCase(getCategories.rejected, (state, action) => {
         state.error = action.payload;
-        state.isLoading = false;
+        state.categoriesLoading = false;
+      })
+      .addCase(getRecipesByCategoryList.pending, (state, action) => {
+        state.recipesMainPageLoading = true;
       })
       .addCase(getRecipesByCategoryList.fulfilled, (state, action) => {
         state.recipesMainPage = action.payload;
+        state.recipesMainPageLoading = false;
       })
       .addCase(getRecipesByCategoryList.rejected, (state, action) => {
         state.error = action.payload;
+        state.recipesMainPageLoading = false;
+      })
+      .addCase(getRecipesByCategory.pending, (state, action) => {
+        state.recipesByCategoryLoading = true;
       })
       .addCase(getRecipesByCategory.fulfilled, (state, action) => {
         state.recipesByCategory = action.payload;
+        state.recipesByCategoryLoading = false;
       })
       .addCase(getRecipesByCategory.rejected, (state, action) => {
         state.error = action.payload;
+        state.recipesByCategoryLoading = false;
+      })
+      .addCase(getRecipeById.pending, (state, action) => {
+        state.recipeLoading = true;
       })
       .addCase(getRecipeById.fulfilled, (state, action) => {
         const data = action.payload;
@@ -69,13 +89,18 @@ const recipesSlice = createSlice({
           return newitem;
         });
         const recipe = { ...data, ingredients };
+        const time = recipe.time.replace('time', '').trim() + ' min';
+        const instructions = recipe.instructions.split('\r\n');
         state.recipe = {
           ...recipe,
-          instructions: recipe.instructions.split('\r\n'),
+          instructions: instructions.filter(item => item !== ''),
+          time,
         };
+        state.recipeLoading = false;
       })
       .addCase(getRecipeById.rejected, (state, action) => {
         state.error = action.payload;
+        state.recipeLoading = false;
       })
       .addCase(findRecipes.fulfilled, (state, action) => {
         const { recipes, total } = action.payload;

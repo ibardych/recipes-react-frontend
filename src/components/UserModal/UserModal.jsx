@@ -1,5 +1,5 @@
 import Modal from 'components/Modal/Modal';
-import { AddImage, FieldWrapper } from './UserModal.styled';
+import { AddImage, FieldWrapper, UserModalStyled } from './UserModal.styled';
 import { useRef, useState, forwardRef } from 'react';
 import Sprite from 'images/sprite.svg';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -10,7 +10,7 @@ import { Button } from 'components/Styled';
 import { updateUserData } from 'redux/user/operations';
 import BACKEND_URL from 'constants/backend.url';
 
-const UserModal = () => {
+const UserModal = ({ handleClose }) => {
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const user = useSelector(selectUser);
@@ -19,6 +19,9 @@ const UserModal = () => {
   );
   const [username, setUsername] = useState(user.username);
   const fileInputRef = useRef(null);
+  const updateUserDataLoading = useSelector(
+    state => state.user.updateUserDataLoading
+  );
 
   const initialValues = {
     username: user.username,
@@ -69,42 +72,52 @@ const UserModal = () => {
     formData.append('file', file);
     formData.append('username', username);
 
-    dispatch(updateUserData(formData));
-    resetForm();
+    dispatch(updateUserData(formData)).then(() => {
+      handleClose();
+      resetForm();
+    });
   };
 
   return (
-    <Modal>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={schema}
-        onSubmit={handleSubmit}
-      >
-        <Form autoComplete="off" onChange={handleOnChange}>
-          <AddImage onClick={handleFileClick} image={imageUrl}>
-            {!imageUrl && (
+    <Modal handleClose={handleClose}>
+      <UserModalStyled>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={schema}
+          onSubmit={handleSubmit}
+        >
+          <Form autoComplete="off" onChange={handleOnChange}>
+            <AddImage onClick={handleFileClick} image={imageUrl}>
               <svg className="icon">
-                <use href={`${Sprite}#icon-photo`}></use>
+                <use href={`${Sprite}#icon-add`}></use>
               </svg>
-            )}
-          </AddImage>
-          <FileInput ref={fileInputRef} name="image" />
+            </AddImage>
+            <FileInput ref={fileInputRef} name="image" />
 
-          <FieldWrapper>
-            <Field
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={username}
-            />
-            <ErrorMessage className="error" component="div" name="username" />
-          </FieldWrapper>
+            <FieldWrapper>
+              <Field
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={username}
+              />
+              <svg className="icon-user">
+                <use href={`${Sprite}#icon-user`}></use>
+              </svg>
+              <svg className="icon-edit">
+                <use href={`${Sprite}#icon-edit`}></use>
+              </svg>
+              <ErrorMessage className="error" component="div" name="username" />
+            </FieldWrapper>
 
-          <Button className="type2" type="submit">
-            Save changes
-          </Button>
-        </Form>
-      </Formik>
+            <Button className="type2 button" type="submit">
+              Save changes
+            </Button>
+
+            {updateUserDataLoading && <div>Loading</div>}
+          </Form>
+        </Formik>
+      </UserModalStyled>
     </Modal>
   );
 };

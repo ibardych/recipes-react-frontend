@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
 import { colors } from 'constants';
+import { hexToRgb } from 'helpers';
 
-export const UserModalStyled = styled.div``;
+export const UserModalStyled = styled.div`
+  & .button {
+    height: 59px;
+  }
+`;
 
 export const AddImage = styled.div`
-  width: 88px;
-  height: 88px;
+  width: 188px;
+  height: 188px;
   margin: 0 auto;
-  border-radius: 88px;
+  border-radius: 188px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,17 +23,44 @@ export const AddImage = styled.div`
 
   & .icon {
     position: absolute;
-    bottom: -5px;
-    right: 30px;
-    width: 24px;
-    height: 24px;
-    fill: transparent;
+    bottom: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
   }
 `;
 
 export const FieldWrapper = styled.div`
   position: relative;
-  padding-top: 20px;
-  margin-bottom: 20px;
-  min-height: 44px;
+  margin-bottom: 32px;
+
+  & input {
+    display: block;
+    width: 100%;
+    height: 60px;
+    border: 1px solid rgba(${hexToRgb(colors.color14)}, 0.3);
+    border-radius: 6px;
+    padding: 16px 51px 16px 51px;
+  }
+
+  & .icon-user {
+    fill: transparent;
+    stroke: rgba(${hexToRgb(colors.color14)}, 0.8);
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 16px;
+    left: 19px;
+    stroke-width: 1.7;
+  }
+
+  & .icon-edit {
+    fill: transparent;
+    stroke: rgba(${hexToRgb(colors.color14)}, 0.8);
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 16px;
+    right: 19px;
+  }
 `;

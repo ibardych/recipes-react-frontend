@@ -57,7 +57,7 @@ const Footer = () => {
   });
 
   return (
-    <>
+    <div>
       <FooterStyled>
         <FooterWrapper>
           <BlockLeft>
@@ -173,7 +173,7 @@ const Footer = () => {
           <IoMdClose />
         </div>
       </Project>
-    </>
+    </div>
   );
 };
 

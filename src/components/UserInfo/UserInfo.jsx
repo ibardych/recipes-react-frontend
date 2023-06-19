@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { UserInfoStyled, Span, Wrapper, Popup } from './UserInfo.styled';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { logOut } from 'redux/user/operations';
 import { selectUser } from 'redux/user/selectors';
 import { Button } from 'components/Styled';
 import Sprite from 'images/sprite.svg';
 import { selectModalOpened } from 'redux/general/selectors';
-import { toggleModal } from 'redux/general/slice';
+import { setModalOpened, toggleModal } from 'redux/general/slice';
 import UserModal from 'components/UserModal/UserModal';
 import BACKEND_URL from 'constants/backend.url';
+import LogoutModal from 'components/LogoutModal/LogoutModal';
 
 const UserInfo = () => {
   const user = useSelector(selectUser);
@@ -17,18 +17,32 @@ const UserInfo = () => {
   const dispatch = useDispatch();
   const [popupOpened, setPopupOpened] = useState(false);
   const modalOpened = useSelector(selectModalOpened);
-
-  const clickHandler = () => {
-    dispatch(logOut());
-  };
+  const [userModal, setUserModal] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
 
   const toggleUserPopup = () => {
     setPopupOpened(!popupOpened);
   };
 
-  const openModal = () => {
+  const openUserModal = () => {
     dispatch(toggleModal());
+    setUserModal(true);
     setPopupOpened(false);
+  };
+
+  const openLogoutModal = () => {
+    dispatch(toggleModal());
+    setLogoutModal(true);
+    setPopupOpened(false);
+  };
+
+  const closeUserModal = () => {
+    setUserModal(false);
+  };
+
+  const closeLogoutModal = () => {
+    setLogoutModal(false);
+    dispatch(setModalOpened(false));
   };
 
   return (
@@ -44,10 +58,10 @@ const UserInfo = () => {
       {popupOpened && (
         <Popup>
           <span>Edit profile</span>
-          <svg className="edit" onClick={openModal}>
+          <svg className="edit" onClick={openUserModal}>
             <use href={`${Sprite}#icon-edit`}></use>
           </svg>
-          <Button type="button" className="logout" onClick={clickHandler}>
+          <Button type="button" className="logout" onClick={openLogoutModal}>
             Log out
             <svg className="icon">
               <use href={`${Sprite}#icon-arrow-right`}></use>
@@ -55,7 +69,10 @@ const UserInfo = () => {
           </Button>
         </Popup>
       )}
-      {modalOpened && <UserModal />}
+      {modalOpened && userModal && <UserModal handleClose={closeUserModal} />}
+      {modalOpened && logoutModal && (
+        <LogoutModal handleClose={closeLogoutModal} />
+      )}
     </UserInfoStyled>
   );
 };
