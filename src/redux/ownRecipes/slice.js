@@ -19,9 +19,9 @@ const ownRecipesSlice = createSlice({
         state.createRecipeLoading = true;
       })
       .addCase(createOwnRecipe.fulfilled, (state, action) => {
-        const recipe = action.payload;
-        state.createdRecipe = recipe;
-        state.recipes.push(recipe);
+        // const recipe = action.payload;
+        // state.createdRecipe = recipe;
+        // state.recipes = [recipe, ...state.recipes];
         state.createRecipeLoading = false;
       })
       .addCase(createOwnRecipe.rejected, (state, action) => {

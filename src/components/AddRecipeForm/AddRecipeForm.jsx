@@ -191,8 +191,6 @@ const AddRecipeForm = () => {
       })
     );
 
-    console.log(ingredients);
-
     formData.append('file', file);
     formData.append('title', title);
     formData.append('description', description);

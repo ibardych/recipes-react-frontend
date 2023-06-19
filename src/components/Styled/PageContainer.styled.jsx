@@ -5,6 +5,7 @@ import { container } from 'helpers';
 export const PageContainer = styled.div`
   ${({ type }) => (type === 'full' ? '' : container)};
   padding-top: 30px;
+  z-index: 1;
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     padding-top: 53px;

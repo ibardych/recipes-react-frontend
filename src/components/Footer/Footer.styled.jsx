@@ -5,10 +5,17 @@ import { animation } from 'constants/animation';
 import { container, hexToRgb, transition } from 'helpers';
 import { NavLink } from 'react-router-dom';
 import Logo from 'images/logo.footer.svg';
+import FooterBgImg1 from 'images/Footer/footer-bg1@2x.png';
+import FooterBgImg2 from 'images/Footer/footer-bg2@2x.png';
 
 export const FooterStyled = styled.footer`
-  width: 100%;
+  position: relative;
   margin-top: 100px;
+`;
+
+export const FooterMain = styled.div`
+  width: 100%;
+
   position: relative;
   background: ${colors.color8};
   padding: 64px 0 50px 0;
@@ -343,10 +350,9 @@ export const FooterCopyright = styled.div`
   width: 100%;
   left: 0;
   bottom: 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  padding-top: 45px;
+  padding-bottom: 45px;
+  position: relative;
 
   @media screen and (min-width: ${mediaSizes.desktop}) {
   }
@@ -453,4 +459,44 @@ export const Project = styled.div`
   }
 
   ${animation}
+`;
+
+export const FooterBg1 = styled.div`
+  width: 170px;
+  height: 120px;
+  background: url(${FooterBgImg1}) no-repeat top right;
+  background-size: 240px auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  z-index: 0;
+  pointer-events: none;
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    background-size: 420px auto;
+    width: 300px;
+    height: 200px;
+  }
+  @media screen and (min-width: ${mediaSizes.desktop}) {
+  }
+`;
+
+export const FooterBg2 = styled.div`
+  width: 170px;
+  height: 100%;
+  background: url(${FooterBgImg2}) no-repeat top -70px right -30px;
+  background-size: 140px auto;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    background: url(${FooterBgImg2}) no-repeat top -70px right -30px;
+    background-size: 140px auto;
+  }
+  @media screen and (min-width: ${mediaSizes.desktop}) {
+  }
 `;

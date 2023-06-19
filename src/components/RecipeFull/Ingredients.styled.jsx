@@ -149,6 +149,7 @@ export const Checkbox = styled.div`
   flex-shrink: 0;
   flex-grow: 0;
   border-radius: 4px;
+  cursor: pointer;
 
   &.disabled {
     /* opacity: 0.9; */

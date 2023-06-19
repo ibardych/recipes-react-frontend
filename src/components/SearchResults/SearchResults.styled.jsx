@@ -7,6 +7,7 @@ export const SearchResultsStyled = styled.div`
   flex-wrap: wrap;
   gap: 28px;
   margin-bottom: 40px;
+  min-height: 300px;
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     gap: 32px;
@@ -16,6 +17,10 @@ export const SearchResultsStyled = styled.div`
   @media screen and (min-width: ${mediaSizes.desktop}) {
     gap: 50px 24px;
     margin-bottom: 60px;
+  }
+
+  &.no-items {
+    min-height: 0px;
   }
 
   & a {

@@ -15,14 +15,19 @@ const MyRecipes = () => {
     state => state.ownRecipes.ownRecipesLoading
   );
   const [recipeLoading, setRecipeLoading] = useState([]);
+  const createRecipeLoading = useSelector(
+    state => state.ownRecipes.createRecipeLoading
+  );
 
   const removeRecipeLoading = recipeId => {
     setRecipeLoading(prev => prev.filter(id => id !== recipeId));
   };
 
   useEffect(() => {
-    dispatch(getOwnRecipes());
-  }, [dispatch]);
+    if (!createRecipeLoading) {
+      dispatch(getOwnRecipes());
+    }
+  }, [dispatch, createRecipeLoading]);
 
   const deleteRecipe = async id => {
     if (recipeLoading.includes(id)) return;

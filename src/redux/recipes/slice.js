@@ -40,6 +40,7 @@ const initialState = {
     recipes: [],
     total: null,
   },
+  searchRecipesLoading: false,
 };
 
 const recipesSlice = createSlice({
@@ -104,13 +105,18 @@ const recipesSlice = createSlice({
         state.error = action.payload;
         state.recipeLoading = false;
       })
+      .addCase(findRecipes.pending, (state, action) => {
+        state.searchRecipesLoading = true;
+      })
       .addCase(findRecipes.fulfilled, (state, action) => {
         const { recipes, total } = action.payload;
         state.searchRecipes.recipes = recipes;
         state.searchRecipes.total = total;
+        state.searchRecipesLoading = false;
       })
       .addCase(findRecipes.rejected, (state, action) => {
         state.error = action.payload;
+        state.searchRecipesLoading = false;
       })
       .addCase(getFavoriteRecipes.pending, (state, action) => {
         state.favoriteRecipesLoading = true;

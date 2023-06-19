@@ -3,8 +3,11 @@ import {
   BlockMiddle,
   BlockRight,
   FieldWrapper,
+  FooterBg1,
+  FooterBg2,
   FooterCopyright,
   FooterForm,
+  FooterMain,
   FooterNavi,
   FooterNaviLink,
   FooterSocials,
@@ -57,8 +60,8 @@ const Footer = () => {
   });
 
   return (
-    <div>
-      <FooterStyled>
+    <FooterStyled>
+      <FooterMain>
         <FooterWrapper>
           <BlockLeft>
             <FooterTitle>
@@ -153,7 +156,7 @@ const Footer = () => {
             )}
           </BlockRight>
         </FooterWrapper>
-      </FooterStyled>
+      </FooterMain>
       <FooterCopyright>
         <ul>
           <li>© 2023 All Rights Reserved</li>
@@ -166,6 +169,7 @@ const Footer = () => {
             </p>
           </li>
         </ul>
+        <FooterBg2 />
       </FooterCopyright>
       <Project onClick={closeModal} className={projectOpened ? 'opened' : ''}>
         <div className="wrapper">
@@ -173,7 +177,8 @@ const Footer = () => {
           <IoMdClose />
         </div>
       </Project>
-    </div>
+      <FooterBg1 />
+    </FooterStyled>
   );
 };
 

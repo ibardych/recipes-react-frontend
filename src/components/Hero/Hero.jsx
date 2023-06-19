@@ -48,7 +48,7 @@ const Hero = () => {
             <span>Delicious and healthy</span> way to enjoy a variety of fresh
             ingredients in one satisfying meal
           </div>
-          <NavLink to="/">
+          <NavLink to="/categories">
             See recipes
             <svg className="icon">
               <use href={`${Sprite}#icon-arrow-right`}></use>

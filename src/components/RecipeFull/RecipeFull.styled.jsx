@@ -32,6 +32,7 @@ export const PreparationSteps = styled.div`
   flex-direction: column;
   gap: 14px;
   margin-bottom: 40px;
+  width: 100%;
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     gap: 20px;

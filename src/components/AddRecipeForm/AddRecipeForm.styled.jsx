@@ -33,6 +33,7 @@ export const AddImage = styled.div`
   margin-bottom: 32px;
   background: url(${({ image }) => image}) no-repeat center ${colors.color1};
   background-size: cover;
+  cursor: pointer;
 
   & .icon {
     width: 64px;
