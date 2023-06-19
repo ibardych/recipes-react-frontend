@@ -41,6 +41,12 @@ export const FieldWrapper = styled.div`
     border: 1px solid rgba(${hexToRgb(colors.color14)}, 0.3);
     border-radius: 6px;
     padding: 16px 51px 16px 51px;
+
+    .theme.dark & {
+      background-color: transparent;
+      border: 1px solid rgba(${hexToRgb(colors.color7)}, 0.3);
+      color: rgba(${hexToRgb(colors.color7)}, 0.7);
+    }
   }
 
   & .icon-user {
@@ -52,6 +58,10 @@ export const FieldWrapper = styled.div`
     top: 16px;
     left: 19px;
     stroke-width: 1.7;
+
+    .theme.dark & {
+      stroke: rgba(${hexToRgb(colors.color7)}, 0.7);
+    }
   }
 
   & .icon-edit {
@@ -62,5 +72,9 @@ export const FieldWrapper = styled.div`
     position: absolute;
     top: 16px;
     right: 19px;
+
+    .theme.dark & {
+      stroke: rgba(${hexToRgb(colors.color7)}, 0.7);
+    }
   }
 `;

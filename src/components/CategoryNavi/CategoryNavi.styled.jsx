@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from 'constants';
 import { NavLink } from 'react-router-dom';
-import { transition } from 'helpers';
+import { hexToRgb, transition } from 'helpers';
 import { mediaSizes } from 'constants';
 
 export const CategoryNaviStyled = styled.div`
@@ -26,6 +26,10 @@ export const CategoryNaviStyled = styled.div`
     width: 100%;
     height: 1px;
     background-color: ${colors.color3};
+
+    .theme.dark & {
+      background-color: rgba(${hexToRgb(colors.color7)}, 0.2);
+    }
   }
 
   & .slider {
@@ -43,6 +47,11 @@ export const CategoryNaviStyled = styled.div`
   & .swiper-button {
     top: 18px;
     color: #dcdcdc;
+
+    .theme.dark & {
+      color: #848484;
+    }
+
     &::after {
       font-size: 18px;
     }
@@ -76,6 +85,10 @@ export const LinkStyled = styled(NavLink)`
   padding: 10px;
   ${transition('opacity', 'color')};
 
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 0.6);
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     padding: 11px;
   }
@@ -87,6 +100,10 @@ export const LinkStyled = styled(NavLink)`
   &.active {
     color: ${colors.color1};
     position: relative;
+
+    .theme.dark & {
+      color: ${colors.color1};
+    }
 
     &::after {
       content: '';

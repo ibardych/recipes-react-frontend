@@ -10,8 +10,9 @@ import { setModalOpened, toggleModal } from 'redux/general/slice';
 import UserModal from 'components/UserModal/UserModal';
 import BACKEND_URL from 'constants/backend.url';
 import LogoutModal from 'components/LogoutModal/LogoutModal';
+import { useLocation } from 'react-router-dom';
 
-const UserInfo = () => {
+const UserInfo = ({ isScrolled }) => {
   const user = useSelector(selectUser);
   const userName = user.username;
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const UserInfo = () => {
   const modalOpened = useSelector(selectModalOpened);
   const [userModal, setUserModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
+  const location = useLocation();
 
   const toggleUserPopup = () => {
     setPopupOpened(!popupOpened);
@@ -53,7 +55,9 @@ const UserInfo = () => {
           src={`${user.gravatar ? `` : `${BACKEND_URL}/`}${user.avatarURL}`}
           alt="avatar"
         />
-        <Span>{userName}</Span>
+        <Span location={location.pathname} isScrolled={isScrolled}>
+          {userName}
+        </Span>
       </Wrapper>
       {popupOpened && (
         <Popup>

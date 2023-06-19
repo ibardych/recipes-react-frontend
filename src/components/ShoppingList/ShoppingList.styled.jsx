@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { mediaSizes } from 'constants';
 import { colors } from 'constants';
+import { hexToRgb } from 'helpers';
 
 export const ShoppingListStyled = styled.div``;
 
@@ -66,6 +67,10 @@ export const Ingredient = styled.div`
   gap: 20px;
   position: relative;
 
+  .theme.dark & {
+    border-color: rgba(${hexToRgb(colors.color7)}, 0.15);
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     padding: 0px 54px 34px 0px;
     margin-bottom: 34px;
@@ -89,6 +94,10 @@ export const Ingredient = styled.div`
       height: 20px;
       stroke: #333333;
       stroke-width: 1.7;
+
+      .theme.dark & {
+        stroke: rgba(${hexToRgb(colors.color7)}, 1);
+      }
 
       @media screen and (min-width: ${mediaSizes.tablet}) {
         width: 26px;
@@ -124,16 +133,28 @@ export const Image = styled.div`
   background: url(${({ url }) => url}) no-repeat center ${colors.color11};
   background-size: 48px 48px;
 
+  .theme.dark & {
+    background: url(${({ url }) => url}) no-repeat center
+      rgba(${hexToRgb(colors.color6)}, 1);
+    background-size: 48px 48px;
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     width: 100px;
     height: 100px;
     background-size: 88px 88px;
+    .theme.dark & {
+      background-size: 88px 88px;
+    }
   }
   @media screen and (min-width: ${mediaSizes.desktop}) {
     padding: 12px;
     width: 120px;
     height: 120px;
     background-size: 96px 96px;
+    .theme.dark & {
+      background-size: 96px 96px;
+    }
   }
 `;
 
@@ -143,6 +164,11 @@ export const Name = styled.div`
   font-size: 12px;
   line-height: 14px;
   letter-spacing: -0.24px;
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+    background-size: 48px 48px;
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 20px;

@@ -38,6 +38,11 @@ export const RecipeThumbStyled = styled(NavLink)`
     border-radius: 8px;
     color: ${colors.color15};
 
+    .theme.dark & {
+      background-color: ${colors.color6};
+      color: ${colors.color7};
+    }
+
     @media screen and (min-width: ${mediaSizes.desktop}) {
       left: 16px;
       right: 16px;

@@ -54,7 +54,7 @@ const Header = () => {
         <HeaderContainer>
           <Logo />
           {desktop && <Navigation />}
-          <UserInfo />
+          <UserInfo isScrolled={isScrolled} />
           <ThemeToggler />
           {!desktop && (
             <MenuButton onClick={clickHandler}>

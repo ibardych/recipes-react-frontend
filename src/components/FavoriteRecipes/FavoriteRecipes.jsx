@@ -51,7 +51,7 @@ const FavoriteRecipes = () => {
           <LoaderSmall scale="1" top="100px" />
         ) : (
           <>
-            {recipes &&
+            {!!recipes.length &&
               recipes.map((recipe, key) => {
                 return (
                   favoriteRecipeIds.includes(recipe._id) && (
@@ -67,14 +67,14 @@ const FavoriteRecipes = () => {
           </>
         )}
       </FavoriteRecipesStyled>
-      {!favoriteRecipesLoading && recipes && (
+      {!favoriteRecipesLoading && !!recipes.length && (
         <Pagination
           total={Math.ceil(total / limit)}
           page={page}
           handlePage={handlePage}
         />
       )}
-      {!recipes.length && !favoriteRecipesLoading && (
+      {recipes.length === 0 && !favoriteRecipesLoading && (
         <NoItems>You don't have any favorite recipes yet.</NoItems>
       )}
     </>

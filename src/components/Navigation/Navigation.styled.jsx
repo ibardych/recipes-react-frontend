@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from 'constants';
 import { NavLink } from 'react-router-dom';
-import { transition } from 'helpers';
+import { hexToRgb, transition } from 'helpers';
 
 export const NavigationStyled = styled.ul`
   display: flex;
@@ -20,13 +20,24 @@ export const LinkStyled = styled(NavLink)`
   align-items: center;
   ${transition('opacity')};
 
+  .theme.dark & {
+    color: ${colors.color7};
+  }
+
   &:hover {
     opacity: 0.6;
+  }
+  &:focus {
+    opacity: 1;
   }
 
   &.active {
     font-weight: 600;
     color: ${colors.color1};
+
+    .theme.dark & {
+      color: ${colors.color1};
+    }
   }
 
   & .search {
@@ -34,5 +45,9 @@ export const LinkStyled = styled(NavLink)`
     stroke: ${colors.color14};
     width: 24px;
     height: 24px;
+
+    .theme.dark & {
+      stroke: rgba(${hexToRgb(colors.color7)}, 1);
+    }
   }
 `;

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { mediaSizes } from 'constants';
 import { colors } from 'constants';
+import { hexToRgb } from 'helpers';
 import checkIcon from 'images/check.svg';
 
 export const IngredientsStyled = styled.div``;
@@ -65,6 +66,10 @@ export const Ingredient = styled.div`
   gap: 20px;
   position: relative;
 
+  .theme.dark & {
+    background-color: ${colors.color6};
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     padding: 16px 58px 16px 24px;
   }
@@ -106,6 +111,10 @@ export const Name = styled.div`
   font-size: 12px;
   line-height: 14px;
   letter-spacing: -0.24px;
+
+  .theme.dark & {
+    color: ${colors.color7};
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 20px;
@@ -151,8 +160,8 @@ export const Checkbox = styled.div`
   border-radius: 4px;
   cursor: pointer;
 
-  &.disabled {
-    /* opacity: 0.9; */
+  .theme.dark & {
+    border-color: rgba(${hexToRgb(colors.color7)}, 0.5) !important;
   }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {

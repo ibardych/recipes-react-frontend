@@ -1,6 +1,4 @@
-import { Button } from 'components/Styled';
 import BACKEND_URL from 'constants/backend.url';
-import { useNavigate } from 'react-router-dom';
 import Sprite from 'images/sprite.svg';
 import {
   Bottom,
@@ -14,6 +12,7 @@ import {
   Wrapper,
 } from './RecipeCard.styled';
 import { LoaderSmall } from 'components/Loader/Loader';
+import { ButtonLink } from 'components/Styled';
 
 const RecipeCard = ({
   recipe,
@@ -21,12 +20,7 @@ const RecipeCard = ({
   handleDeleteRecipe,
   recipeLoading = [],
 }) => {
-  const navigate = useNavigate();
   const { _id, owner, preview, description, title, time } = recipe;
-
-  const navigateToRecipe = id => {
-    navigate(`/recipe/${id}`);
-  };
 
   return (
     <RecipeCardStyled>
@@ -50,9 +44,9 @@ const RecipeCard = ({
         </Top>
         <Bottom>
           <Time>{time}</Time>
-          <Button className="type6" onClick={() => navigateToRecipe(_id)}>
+          <ButtonLink className="type6" to={`/recipe/${_id}`}>
             See recipe
-          </Button>
+          </ButtonLink>
         </Bottom>
       </Wrapper>
     </RecipeCardStyled>

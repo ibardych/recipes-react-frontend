@@ -21,6 +21,8 @@ const PopularRecipes = () => {
   const ref = useRef(null);
   const loading = useSelector(state => state.recipes.popularRecipesLoading);
 
+  const paginationShop = false;
+
   useEffect(() => {
     dispatch(getPopularRecipes({ page, limit }));
   }, [dispatch, page, limit]);
@@ -57,13 +59,16 @@ const PopularRecipes = () => {
           ))
         )}
       </PopularRecipesStyled>
-      {/* {!loading && !!recipes.length && deviceType !== 'desktop' && (
-        <Pagination
-          total={Math.ceil(total / limit)}
-          page={page}
-          handlePage={handlePage}
-        />
-      )} */}
+      {paginationShop &&
+        !loading &&
+        !!recipes.length &&
+        deviceType !== 'desktop' && (
+          <Pagination
+            total={Math.ceil(total / limit)}
+            page={page}
+            handlePage={handlePage}
+          />
+        )}
     </>
   );
 };

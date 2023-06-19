@@ -60,6 +60,10 @@ export const FieldWrapper = styled.div`
     pointer-events: none;
     color: rgba(${hexToRgb('#000000')}, 0.5);
 
+    .theme.dark & {
+      color: rgba(${hexToRgb(colors.color7)}, 1);
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       font-size: 16px;
     }
@@ -83,6 +87,10 @@ export const FieldWrapper = styled.div`
     border-bottom: 1px solid ${colors.color3};
     background-color: transparent;
     transition: border-color 250ms ease-in-out;
+
+    .theme.dark & {
+      border-color: rgba(${hexToRgb(colors.color7)}, 0.3);
+    }
 
     &:focus {
       border-bottom: 1px solid ${colors.color1};
@@ -121,6 +129,10 @@ export const FieldWrapper = styled.div`
     width: 100%;
     padding-bottom: 4px;
     border-bottom: 1px solid ${colors.color3};
+
+    .theme.dark & {
+      border-color: rgba(${hexToRgb(colors.color7)}, 0.3);
+    }
   }
 
   &.instructions {
@@ -142,6 +154,12 @@ export const FieldWrapper = styled.div`
     transition: border-color 250ms ease-in-out;
     border-radius: 6px;
 
+    .theme.dark & {
+      background-color: transparent;
+      border: 1px solid rgba(${hexToRgb(colors.color7)}, 0.2);
+      color: rgba(${hexToRgb(colors.color7)}, 1);
+    }
+
     @media screen and (min-width: ${mediaSizes.desktop}) {
       font-size: 18px;
       height: 224px;
@@ -150,6 +168,10 @@ export const FieldWrapper = styled.div`
     &::placeholder {
       font-size: 14px;
       color: rgba(0, 0, 0, 0.5);
+
+      .theme.dark & {
+        color: rgba(${hexToRgb(colors.color7)}, 0.3);
+      }
 
       @media screen and (min-width: ${mediaSizes.desktop}) {
         font-size: 18px;
@@ -175,6 +197,10 @@ export const Selected = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 14px;
@@ -207,6 +233,11 @@ export const SelectItems = styled.div`
   color: rgba(${hexToRgb('#000000')}, 0.5);
   z-index: 1;
 
+  .theme.dark & {
+    background-color: rgba(${hexToRgb(colors.color1)}, 1);
+    color: rgba(${hexToRgb(colors.color7)}, 0.6);
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     width: 140px;
     padding: 10px 16px;
@@ -227,6 +258,10 @@ export const SelectItems = styled.div`
 
   & .active {
     color: ${colors.color1};
+
+    .theme.dark & {
+      color: rgba(${hexToRgb(colors.color7)}, 1);
+    }
   }
 `;
 
@@ -239,6 +274,10 @@ export const Title = styled.h2`
   margin-bottom: 28px;
   display: flex;
   justify-content: space-between;
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+  }
 `;
 
 export const Ingredients = styled.div`

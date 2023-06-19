@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { mediaSizes } from 'constants';
 import { colors } from 'constants';
+import { hexToRgb } from 'helpers';
 import { NavLink } from 'react-router-dom';
 
 export const RecipeCardStyled = styled.div`
@@ -11,6 +12,10 @@ export const RecipeCardStyled = styled.div`
   gap: 14px;
   position: relative;
   width: 100%;
+
+  .theme.dark & {
+    background-color: rgba(${hexToRgb(colors.color6)}, 1);
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     padding: 28px 24px;
@@ -59,6 +64,10 @@ export const Title = styled.h2`
   margin-bottom: 14px;
   padding-right: 30px;
 
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 24px;
     margin-bottom: 28px;
@@ -74,6 +83,10 @@ export const Description = styled.div`
   letter-spacing: -0.02em;
   color: ${colors.color14};
   margin-bottom: 12px;
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 0.6);
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 14px;
@@ -96,6 +109,10 @@ export const DeleteButton = styled.div`
   background-color: ${colors.color11};
   cursor: pointer;
 
+  .theme.dark & {
+    background-color: rgba(${hexToRgb(colors.color9)}, 1);
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     top: 28px;
     right: 24px;
@@ -113,6 +130,10 @@ export const DeleteButton = styled.div`
     fill: transparent;
     width: 14px;
     height: 14px;
+
+    .theme.dark & {
+      stroke: rgba(${hexToRgb(colors.color7)}, 1);
+    }
 
     @media screen and (min-width: ${mediaSizes.tablet}) {
       width: 22px;
@@ -139,6 +160,10 @@ export const Time = styled.div`
   line-height: 1.4;
   letter-spacing: -0.24px;
   color: ${colors.color15};
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 14px;

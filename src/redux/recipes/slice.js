@@ -92,7 +92,7 @@ const recipesSlice = createSlice({
           return newitem;
         });
         const recipe = { ...data, ingredients };
-        const time = recipe.time.replace('time', '').trim() + ' min';
+        const time = recipe.time.replace('min', '').trim() + ' min';
         const instructions = recipe.instructions.split('\r\n');
         state.recipe = {
           ...recipe,

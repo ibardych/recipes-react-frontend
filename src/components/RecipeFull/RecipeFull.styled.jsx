@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from 'constants';
 import { mediaSizes } from 'constants';
-import { container } from 'helpers';
+import { container, hexToRgb } from 'helpers';
 
 export const RecipeFullStyled = styled.div`
   @media screen and (min-width: ${mediaSizes.tablet}) {
@@ -49,6 +49,10 @@ export const Step = styled.div`
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: rgba(0, 0, 0, 0.8);
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 14px;

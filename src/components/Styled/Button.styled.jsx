@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { mediaSizes } from 'constants';
 import { colors } from 'constants';
-import { transition } from 'helpers';
+import { hexToRgb, transition } from 'helpers';
 import { NavLink } from 'react-router-dom';
 
 export const Button = styled.button`
@@ -76,6 +76,10 @@ export const Button = styled.button`
     background: transparent;
     padding: 14px 32px;
 
+    .theme.dark & {
+      color: ${colors.color7};
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       padding: 20px 52px;
     }
@@ -92,6 +96,10 @@ export const Button = styled.button`
   &.type5 {
     color: ${colors.color7};
     background: ${colors.color8};
+
+    .theme.dark & {
+      background-color: rgba(${hexToRgb(colors.color1)}, 1);
+    }
 
     &:hover {
       background: ${colors.color1};
@@ -144,6 +152,7 @@ export const Button = styled.button`
     width: 50px;
     height: 50px;
     padding: 0;
+    box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.4);
 
     & svg {
       position: relative;
@@ -243,6 +252,10 @@ export const ButtonLink = styled(NavLink)`
     background: transparent;
     padding: 14px 32px;
 
+    .theme.dark & {
+      color: ${colors.color7};
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       padding: 20px 52px;
     }
@@ -275,6 +288,10 @@ export const ButtonLink = styled(NavLink)`
     font-size: 10px;
     line-height: 1.5;
 
+    .theme.dark & {
+      background-color: rgba(${hexToRgb(colors.color1)}, 1);
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       font-size: 14px;
       padding: 12px 32px;
@@ -286,9 +303,17 @@ export const ButtonLink = styled(NavLink)`
 
     &:hover {
       background: ${colors.color1};
+
+      .theme.dark & {
+        background-color: rgba(${hexToRgb(colors.color8)}, 1);
+      }
     }
     &:focus {
       background: ${colors.color8};
+
+      .theme.dark & {
+        background-color: rgba(${hexToRgb(colors.color1)}, 1);
+      }
     }
   }
 

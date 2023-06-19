@@ -15,7 +15,6 @@ export const FooterStyled = styled.footer`
 
 export const FooterMain = styled.div`
   width: 100%;
-
   position: relative;
   background: ${colors.color8};
   padding: 64px 0 50px 0;
@@ -24,6 +23,10 @@ export const FooterMain = styled.div`
   }
   @media screen and (min-width: ${mediaSizes.desktop}) {
     padding: 64px 0 50px 0;
+  }
+
+  .theme.dark & {
+    background: ${colors.color1};
   }
 `;
 
@@ -197,6 +200,10 @@ export const FooterSocials = styled.ul`
     fill: ${colors.color1};
     width: 20px;
     height: 20px;
+
+    .theme.dark & {
+      fill: ${colors.color7};
+    }
   }
 `;
 
@@ -221,6 +228,10 @@ export const FooterForm = styled.form`
     }
     @media screen and (min-width: ${mediaSizes.desktop}) {
       height: 60px;
+    }
+
+    .theme.dark & {
+      background-color: ${colors.color9};
     }
   }
 `;
@@ -377,6 +388,10 @@ export const FooterCopyright = styled.div`
     display: flex;
     align-items: center;
     color: ${colors.color5};
+
+    .theme.dark & {
+      color: #adadad;
+    }
 
     &:not(:last-child) {
       @media screen and (min-width: ${mediaSizes.tablet}) {

@@ -33,6 +33,12 @@ export const FieldWrapper = styled.div`
     color: rgba(${hexToRgb('#000000')}, 0.5);
     width: 100%;
 
+    .theme.dark & {
+      background-color: transparent;
+      border: 1px solid rgba(${hexToRgb(colors.color7)}, 0.2);
+      color: rgba(${hexToRgb(colors.color7)}, 1);
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       padding: 16px 36px 16px 16px;
     }
@@ -69,6 +75,10 @@ export const FieldWrapper = styled.div`
     top: 50%;
     right: 36px;
     transform: translateY(-50%);
+
+    .theme.dark & {
+      color: rgba(${hexToRgb(colors.color7)}, 1);
+    }
   }
 
   & svg.arrow-down {
@@ -103,6 +113,11 @@ export const FieldWrapper = styled.div`
     text-align: center;
     overflow-y: auto;
 
+    .theme.dark & {
+      background-color: rgba(${hexToRgb(colors.color1)}, 1);
+      color: rgba(${hexToRgb(colors.color7)}, 0.7);
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       font-size: 14px;
     }
@@ -115,6 +130,10 @@ export const FieldWrapper = styled.div`
 
     & .active {
       color: ${colors.color1};
+
+      .theme.dark & {
+        color: rgba(${hexToRgb(colors.color7)}, 1);
+      }
     }
   }
 

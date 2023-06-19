@@ -25,7 +25,7 @@ const RecipePage = lazy(() => import('pages/RecipePage'));
 const ShoppingListPage = lazy(() => import('pages/ShoppingListPage'));
 const SearchPage = lazy(() => import('pages/SearchPage'));
 const FavoritePage = lazy(() => import('pages/FavoritePage'));
-const NotFound = lazy(() => import('../NotFound/NotFound'));
+const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -179,7 +179,7 @@ const App = () => {
                   />
                 }
               />
-              <Route path="/*" element={<NotFound />} />
+              <Route path="/*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </MainContainer>

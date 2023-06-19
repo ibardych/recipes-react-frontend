@@ -32,6 +32,11 @@ export const Span = styled.span`
 
   .theme.dark & {
     color: ${colors.color7};
+
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      color: ${({ location, isScrolled }) =>
+        location === '/main' && !isScrolled ? colors.color8 : colors.color7};
+    }
   }
 `;
 
@@ -47,6 +52,10 @@ export const Popup = styled.div`
   box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.1);
   transform: translateX(-50%);
 
+  .theme.dark & {
+    background-color: ${colors.color9};
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     width: 182px;
   }
@@ -57,6 +66,10 @@ export const Popup = styled.div`
     font-size: 14px;
     line-height: 1.6;
     font-weight: 500;
+
+    .theme.dark & {
+      color: ${colors.color7};
+    }
 
     @media screen and (min-width: ${mediaSizes.tablet}) {
       margin-bottom: 32px;
@@ -71,6 +84,10 @@ export const Popup = styled.div`
     right: 18px;
     stroke: ${colors.color14};
     fill: transparent;
+
+    .theme.dark & {
+      stroke: ${colors.color7};
+    }
   }
 
   & .logout {

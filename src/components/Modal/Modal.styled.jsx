@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { colors } from 'constants';
 import { animation } from 'constants/animation';
 import { mediaSizes } from 'constants/media';
 import { ishidden, transition } from 'helpers';
@@ -50,7 +51,8 @@ export const ModalStyled = styled.div`
     ${transition('transform')};
     overflow: hidden;
     padding: 60px 50px;
-    background-color: #ffffff;
+    background-color: ${({ theme }) =>
+      theme === 'dark' ? colors.color6 : '#ffffff'};
     overflow: hidden;
     position: relative;
     border-radius: 30px;
@@ -78,7 +80,8 @@ export const ModalStyled = styled.div`
 
     &__icon {
       fill: transparent;
-      stroke: rgba(0, 0, 0, 0.8);
+      stroke: ${({ theme }) =>
+        theme === 'dark' ? colors.color7 : 'rgba(0, 0, 0, 0.8)'};
       stroke-width: 2;
       width: 30px;
       height: 30px;

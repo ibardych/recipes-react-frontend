@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
+import { colors } from 'constants';
 import { mediaSizes } from 'constants';
+import { hexToRgb } from 'helpers';
 
 export const NoItemsStyled = styled.div`
   margin: 0 auto;
@@ -14,6 +16,10 @@ export const NoItemsStyled = styled.div`
   flex-direction: column;
   align-items: center;
   line-height: 1.3;
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 0.5);
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 20px;

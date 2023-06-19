@@ -197,6 +197,10 @@ export const HeroWrapper = styled.div`
     margin: 0 auto;
     margin-bottom: 364px;
 
+    .theme.dark & {
+      color: ${colors.color7};
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       margin-bottom: 32px;
       width: 362px;
@@ -226,6 +230,12 @@ export const HeroWrapper = styled.div`
     letter-spacing: -0.24px;
     box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.1);
 
+    .theme.dark & {
+      background-color: ${colors.color6};
+      color: ${colors.color7};
+      box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+    }
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       top: 160px;
       transform: translateX(250px);
@@ -254,6 +264,10 @@ export const HeroWrapper = styled.div`
       color: ${colors.color15};
       font-size: 12px;
 
+      .theme.dark & {
+        color: ${colors.color7};
+      }
+
       & .icon {
         line-height: 1.2;
         font-weight: 400;
@@ -261,6 +275,10 @@ export const HeroWrapper = styled.div`
         height: 18px;
         stroke: ${colors.color15};
         fill: transparent;
+
+        .theme.dark & {
+          stroke: ${colors.color7};
+        }
       }
     }
   }

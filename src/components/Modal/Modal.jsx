@@ -2,7 +2,11 @@ import { ModalStyled } from './Modal.styled';
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectModalClosing, selectModalOpened } from 'redux/general/selectors';
+import {
+  selectModalClosing,
+  selectModalOpened,
+  selectThemeMode,
+} from 'redux/general/selectors';
 import { setModalClosing, toggleModal } from 'redux/general/slice';
 import Sprite from 'images/sprite.svg';
 
@@ -12,6 +16,7 @@ const Modal = ({ handleClose, children }) => {
   const dispatch = useDispatch();
   const modalOpened = useSelector(selectModalOpened);
   const modalClosing = useSelector(selectModalClosing);
+  const themeMode = useSelector(selectThemeMode);
 
   useEffect(() => {
     window.addEventListener('keydown', handleCloseModal);
@@ -41,8 +46,9 @@ const Modal = ({ handleClose, children }) => {
   return createPortal(
     <ModalStyled
       onClick={handleCloseModal}
-      className={!modalOpened ? 'is-hidden' : ''}
+      className={`${!modalOpened ? 'is-hidden' : ''} theme ${themeMode}`}
       modalClosing={modalClosing}
+      theme={themeMode}
     >
       <div className="modal">
         <div className="inner">

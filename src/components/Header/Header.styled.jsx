@@ -16,7 +16,7 @@ export const HeaderStyled = styled.header`
     backdrop-filter: blur(7px);
 
     .theme.dark & {
-      box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 1);
+      box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.7);
       background-color: rgba(${hexToRgb(colors.color9)}, 0.6);
     }
   }

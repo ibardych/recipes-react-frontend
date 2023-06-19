@@ -45,6 +45,10 @@ export const CategoryTitle = styled.h2`
   color: ${colors.color16};
   margin-bottom: 32px;
 
+  .theme.dark & {
+    color: ${colors.color7};
+  }
+
   @media screen and (min-width: ${mediaSizes.tablet}) {
     font-size: 44px;
     margin-bottom: 40px;

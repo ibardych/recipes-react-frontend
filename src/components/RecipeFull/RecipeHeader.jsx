@@ -41,7 +41,7 @@ const RecipeHeader = () => {
     <RecipeHeaderStyled>
       <RecipeTitle>{recipe.title}</RecipeTitle>
       <RecipeDescription>{recipe.description}</RecipeDescription>
-      <Button type="button" className="type4" onClick={handleFavorite}>
+      <Button type="button" className="type4 button" onClick={handleFavorite}>
         {favorite ? 'Remove from favorite recipes' : 'Add to favorite recipes'}
       </Button>
       {toggleFavoriteLoading && <LoaderSmall name="toggle-favorie" />}

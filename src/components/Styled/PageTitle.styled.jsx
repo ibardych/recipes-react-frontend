@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from 'constants';
 import { mediaSizes } from 'constants';
+import { hexToRgb } from 'helpers';
 
 export const PageTitle = styled.h1`
   font-weight: 600;
@@ -14,6 +15,10 @@ export const PageTitle = styled.h1`
   }
   @media screen and (min-width: ${mediaSizes.desktop}) {
   }
+
+  .theme.dark & {
+    color: ${colors.color7};
+  }
 `;
 
 export const PageSubTitle = styled.h2`
@@ -23,6 +28,10 @@ export const PageSubTitle = styled.h2`
   letter-spacing: -0.24px;
   color: ${colors.color15};
   margin-bottom: 28px;
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+  }
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     margin-bottom: 32px;

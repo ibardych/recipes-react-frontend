@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { mediaSizes } from 'constants';
 import { colors } from 'constants';
+import { hexToRgb } from 'helpers';
 import { NavLink } from 'react-router-dom';
 
 export const RecipePreviewStyled = styled(NavLink)`
@@ -9,6 +10,10 @@ export const RecipePreviewStyled = styled(NavLink)`
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  .theme.dark & {
+    border-color: rgba(${hexToRgb(colors.color7)}, 0.15);
+  }
 
   &:last-child {
     padding-bottom: 0px;
@@ -69,6 +74,10 @@ export const Title = styled.h2`
   margin-bottom: 5px;
   color: ${colors.color15};
 
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 1);
+  }
+
   @media screen and (min-width: ${mediaSizes.desktop}) {
   }
 `;
@@ -78,6 +87,10 @@ export const Description = styled.div`
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: #3e4462;
+
+  .theme.dark & {
+    color: rgba(${hexToRgb(colors.color7)}, 0.6);
+  }
 
   @media screen and (min-width: ${mediaSizes.desktop}) {
   }

@@ -31,10 +31,14 @@ export const RecipeHeaderStyled = styled.div`
     background-size: cover;
   }
 
-  & button {
+  & .button {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+
+    .theme.dark & {
+      color: #333;
+    }
 
     @media screen and (min-width: ${mediaSizes.tablet}) {
     }
