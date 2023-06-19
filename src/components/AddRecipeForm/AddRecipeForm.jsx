@@ -8,6 +8,7 @@ import {
   AddRecipeFormStyled,
   BlockLeft,
   BlockRight,
+  ButtonContainer,
   FieldWrapper,
   Ingredients,
   SelectItems,
@@ -26,6 +27,7 @@ import { setNewRecipe } from 'redux/general/slice';
 import { createOwnRecipe } from 'redux/ownRecipes/operations';
 import { useNavigate } from 'react-router-dom';
 import { perfectScrollOptions } from 'constants';
+import { LoaderSmall } from 'components/Loader/Loader';
 
 const {
   disableBodyScroll,
@@ -41,6 +43,9 @@ const AddRecipeForm = () => {
   const { image, title, description, category, time, instructions } = newRecipe;
   const ingredients = newRecipe.ingredients.slice();
   const [file, setFile] = useState(null);
+  const createRecipeLoading = useSelector(
+    state => state.ownRecipes.createRecipeLoading
+  );
 
   const options = {
     reserveScrollBarGap: true,
@@ -346,9 +351,12 @@ const AddRecipeForm = () => {
             />
           </FieldWrapper>
 
-          <Button className="type5" type="submit">
-            Add
-          </Button>
+          <ButtonContainer>
+            <Button className="type5" type="submit">
+              Add
+            </Button>
+            {createRecipeLoading && <LoaderSmall name="new-recipe" />}
+          </ButtonContainer>
         </Form>
       </Formik>
     </AddRecipeFormStyled>

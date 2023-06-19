@@ -9,6 +9,7 @@ import { scrollToTop } from 'helpers';
 import { useRef } from 'react';
 import { selectDeviceType } from 'redux/general/selectors';
 import RecipePreview from 'components/Recipes/RecipePreview';
+import { LoaderSmall } from 'components/Loader/Loader';
 
 const PopularRecipes = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const PopularRecipes = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(4);
   const ref = useRef(null);
+  const loading = useSelector(state => state.recipes.popularRecipesLoading);
 
   useEffect(() => {
     dispatch(getPopularRecipes({ page, limit }));
@@ -41,20 +43,27 @@ const PopularRecipes = () => {
     <>
       <PopularRecipesStyled
         ref={ref}
-        className={deviceType === 'desktop' ? 'desktop' : ''}
+        className={`${deviceType === 'desktop' ? 'desktop' : ''} ${
+          !recipes.length ? 'no-items' : ''
+        }`}
       >
-        {recipes &&
+        {loading ? (
+          <LoaderSmall scale="0.8" top="100px" />
+        ) : (
+          !!recipes.length &&
+          recipes &&
           recipes.map((recipe, key) => (
             <RecipePreview key={key} recipe={recipe} />
-          ))}
+          ))
+        )}
       </PopularRecipesStyled>
-      {recipes && deviceType !== 'desktop' && (
+      {/* {!loading && !!recipes.length && deviceType !== 'desktop' && (
         <Pagination
           total={Math.ceil(total / limit)}
           page={page}
           handlePage={handlePage}
         />
-      )}
+      )} */}
     </>
   );
 };

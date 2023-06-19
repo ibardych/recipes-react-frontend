@@ -14,6 +14,7 @@ import { removeIngredientFromShoppingList } from 'redux/user/operations';
 import Sprite from 'images/sprite.svg';
 import { useState } from 'react';
 import { LoaderSmall } from 'components/Loader/Loader';
+import NoItems from 'components/NoItems/NoItems';
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -35,37 +36,51 @@ const ShoppingList = () => {
   };
 
   return (
-    <ShoppingListStyled>
-      <TableHead>
-        <div>Product</div>
-        <div>
-          <div>Amount</div>
-          <div>Remove</div>
-        </div>
-      </TableHead>
-      <IngredientList>
-        {isRefreshing ? (
-          <LoaderSmall scale="1" top="100px" />
-        ) : (
-          shoppingList &&
-          shoppingList.map(({ id, name, measure, img }, key) => (
-            <Ingredient key={key}>
-              <ImageName>
-                <Image url={img} />
-                <Name>{name}</Name>
-              </ImageName>
-              <Measure>{measure}</Measure>
-              <div className="delete" onClick={() => removeFromShopingList(id)}>
-                <svg>
-                  <use href={`${Sprite}#icon-close`}></use>
-                </svg>
-              </div>
-              {ingrLoading.includes(id) && <LoaderSmall name="shoppinglist" />}
-            </Ingredient>
-          ))
+    <>
+      <ShoppingListStyled>
+        {!!shoppingList.length && (
+          <TableHead>
+            <div>Product</div>
+            <div>
+              <div>Amount</div>
+              <div>Remove</div>
+            </div>
+          </TableHead>
         )}
-      </IngredientList>
-    </ShoppingListStyled>
+        <IngredientList className={!shoppingList.length ? 'no-items' : ''}>
+          {isRefreshing ? (
+            <LoaderSmall scale="1" top="100px" />
+          ) : (
+            shoppingList &&
+            shoppingList.map(({ id, name, measure, img }, key) => (
+              <Ingredient key={key}>
+                <ImageName>
+                  <Image url={img} />
+                  <Name>{name}</Name>
+                </ImageName>
+                <Measure>{measure}</Measure>
+                <div
+                  className="delete"
+                  onClick={() => removeFromShopingList(id)}
+                >
+                  <svg>
+                    <use href={`${Sprite}#icon-close`}></use>
+                  </svg>
+                </div>
+                {ingrLoading.includes(id) && (
+                  <LoaderSmall name="shoppinglist" />
+                )}
+              </Ingredient>
+            ))
+          )}
+        </IngredientList>
+      </ShoppingListStyled>
+      {!shoppingList.length && !isRefreshing && (
+        <NoItems>
+          You don't have any ingredients in your shopping list yet.
+        </NoItems>
+      )}
+    </>
   );
 };
 

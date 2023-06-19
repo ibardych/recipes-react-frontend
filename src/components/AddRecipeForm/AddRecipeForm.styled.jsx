@@ -245,3 +245,14 @@ export const Ingredients = styled.div`
   flex-direction: column;
   gap: 18px;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 30px;
+  position: relative;
+  align-items: center;
+
+  @media screen and (min-width: ${mediaSizes.tablet}) {
+    gap: 50px;
+  }
+`;

@@ -45,7 +45,7 @@ const AddRecipe = () => {
             </SocialIcons>
           </>
         )}
-        <Title>Popular recipe</Title>
+        <Title>Popular recipes</Title>
         <PopularRecipes />
       </PopularRecipesWrapper>
     </AddRecipeStyled>

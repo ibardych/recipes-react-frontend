@@ -98,6 +98,20 @@ export const LoaderSmallStyled = styled.div`
     }
   }
 
+  &.toggle-favorie {
+    top: 20px;
+    transform: scale(0.4) translateY(-50%);
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      top: 24px;
+      transform: scale(0.5) translateY(-50%);
+    }
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      top: 30px;
+      transform: scale(0.6) translateY(-50%);
+    }
+  }
+
   &.shoppinglist {
     position: absolute;
     right: 16px;
@@ -112,6 +126,35 @@ export const LoaderSmallStyled = styled.div`
     @media screen and (min-width: ${mediaSizes.desktop}) {
       right: 34px;
       top: 59px;
+    }
+  }
+
+  &.delete-recipe {
+    position: absolute;
+    top: 12px;
+    left: -13px;
+    transform: scale(0.3) translateY(-50%);
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      top: 20px;
+      left: -18px;
+      transform: scale(0.4) translateY(-50%);
+    }
+    @media screen and (min-width: ${mediaSizes.desktop}) {
+      top: 22px;
+      left: -22px;
+      transform: scale(0.5) translateY(-50%);
+    }
+  }
+
+  &.new-recipe {
+    position: inherit;
+    left: 0;
+    top: 0;
+    transform: scale(0.5) translateY(0);
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      transform: scale(0.7) translateY(0);
+    }
+    @media screen and (min-width: ${mediaSizes.desktop}) {
     }
   }
 

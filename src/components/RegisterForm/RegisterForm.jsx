@@ -134,7 +134,7 @@ export const RegisterForm = () => {
                       <use href={`${Sprite}#icon-error`}></use>
                     </svg>
                   )}
-                  {!hasUsernameError && isFormSubmitted && (
+                  {!hasEmailError && isFormSubmitted && (
                     <svg className="icon-success">
                       <use href={`${Sprite}#icon-success`}></use>
                     </svg>

@@ -27,7 +27,7 @@ const initialState = {
   isLoggedIn: false,
   authError: null,
   updateUserDataLoading: false,
-  toggeIngredientLoading: [],
+  toggleFavoriteLoading: false,
 };
 
 const userSlice = createSlice({
@@ -85,17 +85,27 @@ const userSlice = createSlice({
         state.user.shoppingList = action.payload.shoppingList;
       })
       .addCase(removeIngredientFromShoppingList.rejected, state => {})
+      .addCase(addRecipeToFavorite.pending, (state, action) => {
+        state.toggleFavoriteLoading = true;
+      })
       .addCase(addRecipeToFavorite.fulfilled, (state, action) => {
         state.user.favoriteRecipeIds = action.payload.favoriteRecipeIds;
+        state.toggleFavoriteLoading = false;
       })
       .addCase(addRecipeToFavorite.rejected, (state, action) => {
         state.error = action.payload;
+        state.toggleFavoriteLoading = false;
+      })
+      .addCase(removeRecipeFromFavorite.pending, (state, action) => {
+        state.toggleFavoriteLoading = true;
       })
       .addCase(removeRecipeFromFavorite.fulfilled, (state, action) => {
         state.user.favoriteRecipeIds = action.payload.favoriteRecipeIds;
+        state.toggleFavoriteLoading = false;
       })
       .addCase(removeRecipeFromFavorite.rejected, (state, action) => {
         state.error = action.payload;
+        state.toggleFavoriteLoading = false;
       })
       .addCase(updateUserData.pending, (state, action) => {
         state.updateUserDataLoading = true;
@@ -111,13 +121,6 @@ const userSlice = createSlice({
         state.error = action.payload;
       });
   },
-  reducers: {
-    setIngredientLoading(state, action) {
-      const ingredientId = action.payload;
-      state.toggeIngredientLoading = ingredientId;
-    },
-  },
 });
 
-export const { setIngredientLoading } = userSlice.actions;
 export const userReducer = userSlice.reducer;

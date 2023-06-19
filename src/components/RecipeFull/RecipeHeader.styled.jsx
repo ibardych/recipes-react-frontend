@@ -48,7 +48,7 @@ export const RecipeTitle = styled.h1`
   text-align: center;
   font-weight: 600;
   font-size: 24px;
-  line-height: 1;
+  line-height: 1.3;
   letter-spacing: -0.02em;
   color: ${colors.color1};
   margin-bottom: 18px;
@@ -58,6 +58,7 @@ export const RecipeTitle = styled.h1`
     margin-bottom: 24px;
   }
   @media screen and (min-width: ${mediaSizes.desktop}) {
+    max-width: 1000px;
   }
 `;
 

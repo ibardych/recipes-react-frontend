@@ -50,6 +50,10 @@ export const IngredientList = styled.div`
   }
   @media screen and (min-width: ${mediaSizes.desktop}) {
   }
+
+  &.no-items {
+    min-height: 0px;
+  }
 `;
 
 export const Ingredient = styled.div`

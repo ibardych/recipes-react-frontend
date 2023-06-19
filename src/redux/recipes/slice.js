@@ -27,10 +27,12 @@ const initialState = {
     recipes: [],
     total: null,
   },
+  favoriteRecipesLoading: false,
   popularRecipes: {
     recipes: [],
     total: null,
   },
+  popularRecipesLoading: false,
   searchRecipes: {
     filter: 'title',
     filterName: 'Title',
@@ -110,17 +112,27 @@ const recipesSlice = createSlice({
       .addCase(findRecipes.rejected, (state, action) => {
         state.error = action.payload;
       })
+      .addCase(getFavoriteRecipes.pending, (state, action) => {
+        state.favoriteRecipesLoading = true;
+      })
       .addCase(getFavoriteRecipes.fulfilled, (state, action) => {
         state.favoriteRecipes = action.payload;
+        state.favoriteRecipesLoading = false;
       })
       .addCase(getFavoriteRecipes.rejected, (state, action) => {
         state.error = action.payload;
+        state.favoriteRecipesLoading = false;
+      })
+      .addCase(getPopularRecipes.pending, (state, action) => {
+        state.popularRecipesLoading = true;
       })
       .addCase(getPopularRecipes.fulfilled, (state, action) => {
         state.popularRecipes = action.payload;
+        state.popularRecipesLoading = false;
       })
       .addCase(getPopularRecipes.rejected, (state, action) => {
         state.error = action.payload;
+        state.popularRecipesLoading = false;
       });
   },
   reducers: {

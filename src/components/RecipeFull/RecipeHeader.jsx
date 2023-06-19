@@ -15,11 +15,15 @@ import { selectFavoriteRecipeIds } from 'redux/user/selectors';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Sprite from 'images/sprite.svg';
+import { LoaderSmall } from 'components/Loader/Loader';
 
 const RecipeHeader = () => {
   const dispatch = useDispatch();
   const recipe = useSelector(selectRecipe);
   const favoriteRecipeIds = useSelector(selectFavoriteRecipeIds);
+  const toggleFavoriteLoading = useSelector(
+    state => state.user.toggleFavoriteLoading
+  );
   const [favorite, setFavorite] = useState(false);
 
   const handleFavorite = () => {
@@ -40,6 +44,7 @@ const RecipeHeader = () => {
       <Button type="button" className="type4" onClick={handleFavorite}>
         {favorite ? 'Remove from favorite recipes' : 'Add to favorite recipes'}
       </Button>
+      {toggleFavoriteLoading && <LoaderSmall name="toggle-favorie" />}
       <RecipeTime>
         <svg className="icon">
           <use href={`${Sprite}#icon-clock`}></use>
