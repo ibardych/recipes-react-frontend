@@ -1,14 +1,10 @@
 import { RecipeThumbStyled } from './RecipeThumb.styled';
-import BACKEND_URL from 'constants/backend.url';
 
 const RecipeThumb = ({ recipe }) => {
-  const { _id, title, owner, thumb } = recipe;
+  const { _id, title, thumb } = recipe;
 
   return (
-    <RecipeThumbStyled
-      to={`/recipe/${_id}`}
-      url={`${owner ? `${BACKEND_URL}/` : ``}${thumb}`}
-    >
+    <RecipeThumbStyled to={`/recipe/${_id}`} url={thumb}>
       <div className="title">{title}</div>
     </RecipeThumbStyled>
   );

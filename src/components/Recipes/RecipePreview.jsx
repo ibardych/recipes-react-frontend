@@ -1,4 +1,3 @@
-import BACKEND_URL from 'constants/backend.url';
 import {
   Description,
   Image,
@@ -8,14 +7,11 @@ import {
 } from './RecipePreview.styled';
 
 const RecipePreview = ({ recipe, type }) => {
-  const { _id, owner, preview, description, title } = recipe;
+  const { _id, preview, description, title } = recipe;
 
   return (
     <RecipePreviewStyled to={`/recipe/${_id}`}>
-      <Image
-        className="recipe-image"
-        url={`${owner ? `${BACKEND_URL}/` : ``}${preview}`}
-      ></Image>
+      <Image className="recipe-image" url={preview}></Image>
       <Wrapper>
         <Title>{title}</Title>
         <Description>{description}</Description>

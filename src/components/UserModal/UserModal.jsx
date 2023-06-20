@@ -8,16 +8,13 @@ import { selectUser } from 'redux/user/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'components/Styled';
 import { updateUserData } from 'redux/user/operations';
-import BACKEND_URL from 'constants/backend.url';
 import { LoaderSmall } from 'components/Loader/Loader';
 
 const UserModal = ({ handleClose }) => {
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const user = useSelector(selectUser);
-  const [imageUrl, setImageUrl] = useState(
-    `${user.gravatar ? `` : `${BACKEND_URL}/`}${user.avatarURL}`
-  );
+  const [imageUrl, setImageUrl] = useState(user.avatarURL);
   const [username, setUsername] = useState(user.username);
   const fileInputRef = useRef(null);
   const updateUserDataLoading = useSelector(

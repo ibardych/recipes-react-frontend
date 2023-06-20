@@ -12,7 +12,6 @@ import {
   toggleModal,
 } from 'redux/general/slice';
 import UserModal from 'components/UserModal/UserModal';
-import BACKEND_URL from 'constants/backend.url';
 import LogoutModal from 'components/LogoutModal/LogoutModal';
 import { useLocation } from 'react-router-dom';
 
@@ -58,11 +57,7 @@ const UserInfo = ({ isScrolled }) => {
   return (
     <UserInfoStyled>
       <Wrapper onClick={toggleUserPopup}>
-        <img
-          width="50"
-          src={`${user.gravatar ? `` : `${BACKEND_URL}/`}${user.avatarURL}`}
-          alt="avatar"
-        />
+        <img width="50" src={user.avatarURL} alt="avatar" />
         <Span location={location.pathname} isScrolled={isScrolled}>
           {userName}
         </Span>

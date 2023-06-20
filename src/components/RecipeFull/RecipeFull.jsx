@@ -14,7 +14,6 @@ import { getRecipeById } from 'redux/recipes/operations';
 import RecipeHeader from './RecipeHeader';
 import Ingredients from './Ingredients';
 import { PageSubTitle } from 'components/Styled/PageTitle.styled';
-import BACKEND_URL from 'constants/backend.url';
 import { selectDeviceType } from 'redux/general/selectors';
 import { LoaderSmall } from 'components/Loader/Loader';
 
@@ -58,9 +57,7 @@ const RecipeFull = () => {
 
                 <img
                   className="recipe-image"
-                  src={`${recipe.owner !== undefined ? BACKEND_URL + '/' : ''}${
-                    deviceType === 'mobile' ? recipe.preview : recipe.thumb
-                  }`}
+                  src={deviceType === 'mobile' ? recipe.preview : recipe.thumb}
                   alt={recipe.title}
                 />
               </Preparation>

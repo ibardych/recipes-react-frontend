@@ -1,4 +1,3 @@
-import BACKEND_URL from 'constants/backend.url';
 import Sprite from 'images/sprite.svg';
 import {
   Bottom,
@@ -20,14 +19,14 @@ const RecipeCard = ({
   handleDeleteRecipe,
   recipeLoading = [],
 }) => {
-  const { _id, owner, preview, description, title, time } = recipe;
+  const { _id, preview, description, title, time } = recipe;
 
   return (
     <RecipeCardStyled>
       <Image
         to={`/recipe/${_id}`}
         className="recipe-image"
-        url={`${owner ? `${BACKEND_URL}/` : ``}${preview}`}
+        url={preview}
       ></Image>
       <Wrapper>
         <Top>
