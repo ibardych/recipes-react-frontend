@@ -6,7 +6,11 @@ import { selectUser } from 'redux/user/selectors';
 import { Button } from 'components/Styled';
 import Sprite from 'images/sprite.svg';
 import { selectModalOpened } from 'redux/general/selectors';
-import { setModalOpened, toggleModal } from 'redux/general/slice';
+import {
+  setModalClosing,
+  setModalOpened,
+  toggleModal,
+} from 'redux/general/slice';
 import UserModal from 'components/UserModal/UserModal';
 import BACKEND_URL from 'constants/backend.url';
 import LogoutModal from 'components/LogoutModal/LogoutModal';
@@ -39,7 +43,11 @@ const UserInfo = ({ isScrolled }) => {
   };
 
   const closeUserModal = () => {
-    setUserModal(false);
+    dispatch(setModalClosing());
+    setTimeout(() => {
+      dispatch(toggleModal());
+      setUserModal(false);
+    }, 200);
   };
 
   const closeLogoutModal = () => {
@@ -62,9 +70,11 @@ const UserInfo = ({ isScrolled }) => {
       {popupOpened && (
         <Popup>
           <span>Edit profile</span>
-          <svg className="edit" onClick={openUserModal}>
-            <use href={`${Sprite}#icon-edit`}></use>
-          </svg>
+          <div className="edit">
+            <svg onClick={openUserModal}>
+              <use href={`${Sprite}#icon-edit`}></use>
+            </svg>
+          </div>
           <Button type="button" className="logout" onClick={openLogoutModal}>
             Log out
             <svg className="icon">

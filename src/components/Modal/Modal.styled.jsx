@@ -73,6 +73,7 @@ export const ModalStyled = styled.div`
     top: 24px;
     right: 24px;
     ${transition('transform')}
+    cursor: pointer;
 
     &:hover {
       transform: scale(1.2);

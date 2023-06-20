@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { mediaSizes } from 'constants/media';
 import { colors } from 'constants';
+import { transition } from 'helpers';
 
 export const UserInfoStyled = styled.div`
   position: relative;
@@ -13,7 +14,19 @@ export const Wrapper = styled.div`
   gap: 14px;
 
   @media screen and (min-width: ${mediaSizes.desktop}) {
+    padding: 5px 25px 5px 5px;
+    border-radius: 100px;
     margin-right: 50px;
+    cursor: pointer;
+    ${transition('background-color')};
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+
+      .theme.dark & {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
   }
 
   & img {
@@ -77,16 +90,29 @@ export const Popup = styled.div`
   }
 
   & .edit {
-    width: 14px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
     position: absolute;
-    top: 22px;
-    right: 18px;
-    stroke: ${colors.color14};
-    fill: transparent;
+    top: 16px;
+    right: 17px;
+    cursor: pointer;
+    ${transition('background-color')};
+    padding: 5px;
+    border-radius: 20px;
 
-    .theme.dark & {
-      stroke: ${colors.color7};
+    & svg {
+      width: 14px;
+      height: 14px;
+      stroke: ${colors.color14};
+      fill: transparent;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+
+      .theme.dark & {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
     }
   }
 

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'components/Styled';
 import { updateUserData } from 'redux/user/operations';
 import BACKEND_URL from 'constants/backend.url';
+import { LoaderSmall } from 'components/Loader/Loader';
 
 const UserModal = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -113,8 +114,7 @@ const UserModal = ({ handleClose }) => {
             <Button className="type2 button" type="submit">
               Save changes
             </Button>
-
-            {updateUserDataLoading && <div>Loading</div>}
+            {updateUserDataLoading && <LoaderSmall scale="0.7" top="24px" />}
           </Form>
         </Formik>
       </UserModalStyled>
