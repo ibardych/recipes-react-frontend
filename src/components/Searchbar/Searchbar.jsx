@@ -31,6 +31,7 @@ const Searchbar = () => {
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
+      dispatch(setSearchData({ query: '', total: null, recipes: [] }));
       if (search.total === null && URLparams.query) {
         const { filter } = search;
         dispatch(
@@ -42,14 +43,15 @@ const Searchbar = () => {
 
   useEffect(() => {
     const query = URLparams.query ?? '';
-    if (search.query !== query) {
+    if (query && search.query !== query) {
       dispatch(setSearchData({ query }));
     }
   }, [URLparams, dispatch, search]);
 
   const submitHandler = e => {
     e.preventDefault();
-    if (location.pathname !== '/search') navigate('/search');
+    if (location.pathname !== '/search')
+      navigate(`/search?query=${search.query}`);
     if (search.query) {
       setError('');
       const { filter, query } = search;
@@ -61,7 +63,9 @@ const Searchbar = () => {
 
   const handleInputChange = e => {
     const query = e.target.value;
-    setSearchParams(query ? { query } : {});
+    if (location.pathname === '/search') {
+      setSearchParams(query ? { query } : {});
+    }
     dispatch(setSearchData({ query }));
   };
 
