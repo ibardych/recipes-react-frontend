@@ -1,19 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { recipeInitialValues } from 'constants';
 
 const initialState = {
   themeMode: 'light',
   deviceType: null,
   modalOpened: false,
   modalClosing: false,
-  newRecipe: {
-    image: '',
-    title: '',
-    description: '',
-    instructions: '',
-    category: '',
-    time: '',
-    ingredients: [],
-  },
+  newRecipe: recipeInitialValues,
 };
 
 const generalSlice = createSlice({

@@ -148,9 +148,10 @@ export const LoaderSmallStyled = styled.div`
 
   &.new-recipe {
     position: inherit;
-    left: 0;
-    top: 0;
+    left: auto;
+    top: auto;
     transform: scale(0.5) translateY(0);
+
     @media screen and (min-width: ${mediaSizes.tablet}) {
       transform: scale(0.7) translateY(0);
     }

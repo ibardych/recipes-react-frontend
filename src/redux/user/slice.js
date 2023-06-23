@@ -22,7 +22,6 @@ const initialState = {
     favoriteRecipeIds: [],
   },
   error: null,
-  token: null,
   isRefreshing: true,
   isLoggedIn: false,
   authError: null,
@@ -36,11 +35,10 @@ const userSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        const { token, user } = action.payload;
+        const { user } = action.payload;
         state.user.id = user.id;
         state.user.username = user.username;
         state.user.email = user.email;
-        state.token = token;
         state.isLoggedIn = true;
         state.authError = null;
       })
@@ -48,11 +46,10 @@ const userSlice = createSlice({
         state.authError = action.payload;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        const { token, user } = action.payload;
+        const { user } = action.payload;
         state.user.id = user.id;
         state.user.username = user.username;
         state.user.email = user.email;
-        state.token = token;
         state.isLoggedIn = true;
         state.authError = null;
       })
@@ -61,7 +58,6 @@ const userSlice = createSlice({
       })
       .addCase(logOut.fulfilled, state => {
         state.user = { username: null, email: null };
-        state.token = null;
         state.isLoggedIn = false;
       })
       .addCase(refreshUser.pending, state => {

@@ -1,13 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-axios.defaults.baseURL = process.env.REACT_APP_BACKAND_BASEURL;
+import instance from 'redux/user/operations';
 
 export const getCategories = createAsyncThunk(
   'recipes/category-list',
   async (_, thunkAPI) => {
     try {
-      const result = await axios.get('/recipes/category-list');
+      const result = await instance.get('/recipes/category-list');
 
       return result.data;
     } catch (error) {
@@ -20,7 +18,7 @@ export const getRecipesByCategoryList = createAsyncThunk(
   'recipes/main-page',
   async (categories, thunkAPI) => {
     try {
-      const result = await axios.post('/recipes/main-page', categories);
+      const result = await instance.post('/recipes/main-page', categories);
 
       return result.data;
     } catch (error) {
@@ -34,7 +32,7 @@ export const getRecipesByCategory = createAsyncThunk(
   async (data, thunkAPI) => {
     const { category, page, limit } = data;
     try {
-      const result = await axios.get(
+      const result = await instance.get(
         `/recipes/category/${category}?page=${page}&limit=${limit}`
       );
 
@@ -49,7 +47,7 @@ export const getRecipeById = createAsyncThunk(
   'recipes/recipeid',
   async (recipeId, thunkAPI) => {
     try {
-      const result = await axios.get(`/recipes/${recipeId}`);
+      const result = await instance.get(`/recipes/${recipeId}`);
 
       return result.data;
     } catch (error) {
@@ -63,7 +61,7 @@ export const findRecipes = createAsyncThunk(
   async (data, thunkAPI) => {
     const { page, limit } = data;
     try {
-      const result = await axios.post(
+      const result = await instance.post(
         `/search?page=${page}&limit=${limit}`,
         data
       );
@@ -80,7 +78,9 @@ export const getFavoriteRecipes = createAsyncThunk(
   async (data, thunkAPI) => {
     const { page, limit } = data;
     try {
-      const result = await axios.get(`/favorite?page=${page}&limit=${limit}`);
+      const result = await instance.get(
+        `/favorite?page=${page}&limit=${limit}`
+      );
 
       return result.data;
     } catch (error) {
@@ -94,7 +94,7 @@ export const getPopularRecipes = createAsyncThunk(
   async (data, thunkAPI) => {
     const { page, limit } = data;
     try {
-      const result = await axios.get(
+      const result = await instance.get(
         `/recipes/popular?page=${page}&limit=${limit}`
       );
 

@@ -24,8 +24,8 @@ const PopularRecipes = () => {
   const paginationShop = false;
 
   useEffect(() => {
-    dispatch(getPopularRecipes({ page, limit }));
-  }, [dispatch, page, limit]);
+    dispatch(getPopularRecipes({ page: 1, limit: 4 }));
+  }, [dispatch]);
 
   const handlePage = page => {
     setPage(page);

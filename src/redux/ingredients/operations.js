@@ -1,13 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-axios.defaults.baseURL = process.env.REACT_APP_BACKAND_BASEURL;
+import instance from 'redux/user/operations';
 
 export const searchIngredients = createAsyncThunk(
   'ingredients/search',
   async (ingredient, thunkAPI) => {
     try {
-      const result = await axios.post('/ingredients/search', ingredient);
+      const result = await instance.post('/ingredients/search', ingredient);
 
       return result.data;
     } catch (error) {

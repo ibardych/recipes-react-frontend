@@ -16,7 +16,9 @@ export const TopBlocks = styled.div`
   }
 `;
 
-export const BlockLeft = styled.div``;
+export const BlockLeft = styled.div`
+  margin-bottom: 32px;
+`;
 
 export const BlockRight = styled.div`
   flex-basis: 100%;
@@ -30,7 +32,6 @@ export const AddImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 32px;
   background: url(${({ image }) => image}) no-repeat center ${colors.color1};
   background-size: cover;
   cursor: pointer;
@@ -47,6 +48,12 @@ export const FieldWrapper = styled.div`
   padding-top: 20px;
   margin-bottom: 20px;
   min-height: 44px;
+
+  &.image {
+    padding-top: 0;
+    margin-bottom: 0;
+    min-height: 0px;
+  }
 
   & .label {
     position: absolute;
@@ -184,6 +191,7 @@ export const FieldWrapper = styled.div`
     font-size: 12px;
     margin-top: 1px;
     line-height: 1.4;
+    position: absolute;
   }
 `;
 
@@ -283,7 +291,7 @@ export const Title = styled.h2`
 export const Ingredients = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -291,6 +299,8 @@ export const ButtonContainer = styled.div`
   gap: 30px;
   position: relative;
   align-items: center;
+  justify-content: flex-start;
+  margin-top: 32px;
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     gap: 50px;

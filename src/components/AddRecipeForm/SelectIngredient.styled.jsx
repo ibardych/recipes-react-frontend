@@ -7,6 +7,7 @@ export const SelectIngredientStyled = styled.div`
   display: flex;
   align-items: center;
   gap: 14px;
+  position: relative;
 
   & svg.delete {
     width: 18px;
@@ -140,4 +141,15 @@ export const FieldWrapper = styled.div`
   &.ingredient .select {
     text-align: left;
   }
+`;
+
+export const Error = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  transform: translateY(100%);
+  color: ${colors.color10};
+  font-size: 12px;
+  margin-top: 1px;
+  line-height: 1.4;
 `;

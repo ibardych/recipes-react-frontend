@@ -29,13 +29,12 @@ const CategoryRecipes = ({ resetePage, setResetPage }) => {
       setResetPage(false);
     }
 
-    let categoryName = category;
     if (!category && categories.length) {
-      categoryName = categories[0].name;
+      navigate(`/categories/${categories[0].name}`);
     }
-    if (categoryName) {
-      dispatch(getRecipesByCategory({ category: categoryName, page, limit }));
-      navigate(`/categories/${categoryName}`);
+
+    if (category) {
+      dispatch(getRecipesByCategory({ category, page, limit }));
     }
   }, [
     dispatch,

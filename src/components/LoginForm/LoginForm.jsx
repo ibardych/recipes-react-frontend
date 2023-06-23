@@ -32,7 +32,7 @@ export const LoginForm = () => {
     password: yup.string().required('Password is a required field').min(8),
   });
 
-  const initialValues = { email: '', password: '' };
+  const initialValues = { email: 'iuriib@ukr.net', password: '12345678' };
 
   const onClickHandler = () => {
     setPasswordShown(state => !state);

@@ -1,5 +1,6 @@
 import { Field } from 'formik';
 import {
+  Error,
   FieldWrapper,
   SelectIngredientStyled,
 } from './SelectIngredient.styled';
@@ -15,6 +16,7 @@ import { measureTypes } from 'constants';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { perfectScrollOptions } from 'constants';
+import { useRef } from 'react';
 
 const {
   disableBodyScroll,
@@ -22,11 +24,12 @@ const {
   clearAllBodyScrollLocks,
 } = require('body-scroll-lock');
 
-const SelectIngredient = ({ index }) => {
+const SelectIngredient = ({ index, arrayHelpers, errors }) => {
   const dispatch = useDispatch();
   const newRecipe = useSelector(selectNewRecipe);
   const ingredients = newRecipe.ingredients.slice();
-  const { searchQuery, ingredient, measure, measureType } = ingredients[index];
+  const { searchQuery, ingredient, ingredientId, measure, measureType } =
+    ingredients[index];
   const foundIngredients = useSelector(selectFoundIngredients);
   const [measureTypesOpened, setMeasureTypesOpened] = useState(false);
 
@@ -45,6 +48,7 @@ const SelectIngredient = ({ index }) => {
   };
 
   const removeIngredient = index => {
+    arrayHelpers.remove(index);
     ingredients.splice(index, 1);
     dispatch(setNewRecipe({ ...newRecipe, ingredients }));
   };
@@ -72,27 +76,55 @@ const SelectIngredient = ({ index }) => {
   };
 
   const setIngredient = (index, item) => {
+    const { _id: ingredientId, name: ingredient } = item;
+
+    inputRef.current.value = item._id;
+
+    arrayHelpers.replace(index, {
+      ...arrayHelpers.form.values.ingredients[index],
+      ingredientId,
+    });
+
     ingredients[index] = {
       ...ingredients[index],
       searchQuery: '',
-      ingredient: item.name,
-      ingredientId: item._id,
+      ingredient,
+      ingredientId,
     };
     dispatch(setNewRecipe({ ...newRecipe, ingredients }));
     clearAllBodyScrollLocks();
   };
+
+  const checkIngredient = e => {
+    if (!e.target.value) {
+      inputRef.current.value = '';
+      arrayHelpers.replace(index, {
+        ...arrayHelpers.form.values.ingredients[index],
+        ingredientId: '',
+      });
+    }
+  };
+
+  const inputRef = useRef(null);
 
   return (
     <SelectIngredientStyled>
       <FieldWrapper className="ingredient">
         <Field
           type="text"
-          name={`ingredient[${index}]`}
+          name={`ingredients.${index}.ingredient`}
           placeholder=" "
           value={ingredient}
           onKeyUp={findIngredients}
+          onChange={checkIngredient}
         />
-        <Field type="hidden" name="ingredientId" placeholder=" " value="" />
+        <input
+          type="hidden"
+          name={`ingredients.${index}.ingredientId`}
+          placeholder=" "
+          value={ingredientId}
+          ref={inputRef}
+        />
         <svg className="arrow-down">
           <use href={`${Sprite}#icon-arrow-down`}></use>
         </svg>
@@ -115,7 +147,7 @@ const SelectIngredient = ({ index }) => {
       <FieldWrapper className="measure">
         <Field
           type="text"
-          name={`measure[${index}]`}
+          name={`ingredients.${index}.measure`}
           placeholder=" "
           value={measure}
         />
@@ -148,6 +180,16 @@ const SelectIngredient = ({ index }) => {
       <svg className="delete" onClick={() => removeIngredient(index)}>
         <use href={`${Sprite}#icon-delete`}></use>
       </svg>
+      {errors.ingredients && (
+        <Error>
+          {errors.ingredients[index].ingredientId
+            ? `${errors.ingredients[index].ingredientId}. `
+            : ``}
+          {errors.ingredients[index].measure
+            ? `${errors.ingredients[index].measure}. `
+            : ``}
+        </Error>
+      )}
     </SelectIngredientStyled>
   );
 };

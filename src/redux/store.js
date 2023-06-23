@@ -20,7 +20,7 @@ import { ownRecipesReducer } from './ownRecipes/slice';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: [], // 'token'
 };
 
 export const store = configureStore({
