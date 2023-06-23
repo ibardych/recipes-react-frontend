@@ -49,7 +49,6 @@ const Searchbar = () => {
 
   const submitHandler = e => {
     e.preventDefault();
-
     if (location.pathname !== '/search') navigate('/search');
     if (search.query) {
       setError('');
