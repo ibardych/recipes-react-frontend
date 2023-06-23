@@ -36,7 +36,12 @@ const App = () => {
   const loggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
-    dispatch(refreshUser());
+    if (!loggedIn) {
+      dispatch(refreshUser());
+    }
+  }, [dispatch, loggedIn, isRefreshing]);
+
+  useEffect(() => {
     if (loggedIn) {
       dispatch(getCategories());
     }

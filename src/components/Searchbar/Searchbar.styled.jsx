@@ -6,6 +6,7 @@ import { transition } from 'helpers';
 export const SearchbarStyled = styled.div`
   width: 295px;
   margin: 0 auto;
+  position: relative;
 
   @media screen and (min-width: ${mediaSizes.tablet}) {
     width: 369px;
@@ -92,4 +93,16 @@ export const Button = styled.button`
       background-color: ${colors.color8};
     }
   }
+`;
+
+export const Error = styled.div`
+  margin-top: 20px;
+  text-align: center;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  transform: translateY(100%);
+  font-size: 12px;
+  color: ${colors.color10};
 `;

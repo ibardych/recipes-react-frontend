@@ -40,7 +40,7 @@ const SearchResults = () => {
           handlePage={handlePage}
         />
       )}
-      {!recipes.length && !loading && (
+      {search.total === 0 && !loading && (
         <NoItems>Consider searching for something else.</NoItems>
       )}
     </>
