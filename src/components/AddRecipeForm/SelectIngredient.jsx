@@ -33,6 +33,8 @@ const SelectIngredient = ({ index, arrayHelpers, errors }) => {
   const foundIngredients = useSelector(selectFoundIngredients);
   const [measureTypesOpened, setMeasureTypesOpened] = useState(false);
 
+  const { form } = arrayHelpers;
+
   const options = {
     reserveScrollBarGap: true,
   };
@@ -76,6 +78,8 @@ const SelectIngredient = ({ index, arrayHelpers, errors }) => {
   };
 
   const setIngredient = (index, item) => {
+    console.log(arrayHelpers.form);
+
     const { _id: ingredientId, name: ingredient } = item;
 
     inputRef.current.value = item._id;
@@ -180,16 +184,21 @@ const SelectIngredient = ({ index, arrayHelpers, errors }) => {
       <svg className="delete" onClick={() => removeIngredient(index)}>
         <use href={`${Sprite}#icon-delete`}></use>
       </svg>
-      {errors.ingredients && (
-        <Error>
-          {errors.ingredients[index].ingredientId
-            ? `${errors.ingredients[index].ingredientId}. `
-            : ``}
-          {errors.ingredients[index].measure
-            ? `${errors.ingredients[index].measure}. `
-            : ``}
-        </Error>
-      )}
+      {errors.ingredients &&
+        errors.ingredients[index] &&
+        form.touched.ingredients &&
+        form.touched.ingredients[index] && (
+          <Error>
+            {errors.ingredients[index].ingredientId &&
+            form.touched.ingredients[index].ingredient
+              ? `${errors.ingredients[index].ingredientId}. `
+              : ``}
+            {errors.ingredients[index].measure &&
+            form.touched.ingredients[index].measure
+              ? `${errors.ingredients[index].measure}. `
+              : ``}
+          </Error>
+        )}
     </SelectIngredientStyled>
   );
 };

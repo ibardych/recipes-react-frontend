@@ -11,7 +11,7 @@ const Counter = ({ arrayHelpers }) => {
   const defaultIngredient = {
     searchQuery: '',
     ingredient: '',
-    ingredientId: null,
+    ingredientId: '',
     measure: '',
     measureType: 'g',
     modalOpened: false,
@@ -22,6 +22,7 @@ const Counter = ({ arrayHelpers }) => {
     if (action === 'add') {
       arrayHelpers.insert(ingredients.length, {
         ingredient: '',
+        ingredientId: '',
         measure: '',
       });
       ingredients.push(defaultIngredient);

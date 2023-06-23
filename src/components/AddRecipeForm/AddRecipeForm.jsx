@@ -70,8 +70,8 @@ const AddRecipeForm = () => {
       category,
       time,
       instructions,
-      ingredients: ingredients.map(({ ingredientId, measure }) => {
-        return { ingredientId, measure };
+      ingredients: ingredients.map(({ ingredient, ingredientId, measure }) => {
+        return { ingredient, ingredientId, measure };
       }),
     };
   }, [category, description, ingredients, instructions, time, title]);
