@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/recipes-react-frontend/static/css/main.48c79681.css",
-    "main.js": "/recipes-react-frontend/static/js/main.da1b6e71.js",
+    "main.js": "/recipes-react-frontend/static/js/main.5e7fda4a.js",
     "static/js/856.5b44e2e7.chunk.js": "/recipes-react-frontend/static/js/856.5b44e2e7.chunk.js",
     "static/js/697.58fcfaae.chunk.js": "/recipes-react-frontend/static/js/697.58fcfaae.chunk.js",
     "static/js/698.4f22015c.chunk.js": "/recipes-react-frontend/static/js/698.4f22015c.chunk.js",
@@ -10,7 +10,7 @@
     "static/css/84.080d8631.chunk.css": "/recipes-react-frontend/static/css/84.080d8631.chunk.css",
     "static/js/84.2a5a40d6.chunk.js": "/recipes-react-frontend/static/js/84.2a5a40d6.chunk.js",
     "static/css/735.87843bf6.chunk.css": "/recipes-react-frontend/static/css/735.87843bf6.chunk.css",
-    "static/js/735.14bf4294.chunk.js": "/recipes-react-frontend/static/js/735.14bf4294.chunk.js",
+    "static/js/735.668a23e1.chunk.js": "/recipes-react-frontend/static/js/735.668a23e1.chunk.js",
     "static/js/574.4c0091a8.chunk.js": "/recipes-react-frontend/static/js/574.4c0091a8.chunk.js",
     "static/js/488.4f46bda5.chunk.js": "/recipes-react-frontend/static/js/488.4f46bda5.chunk.js",
     "static/js/221.dfd034ad.chunk.js": "/recipes-react-frontend/static/js/221.dfd034ad.chunk.js",
@@ -46,7 +46,7 @@
     "index.html": "/recipes-react-frontend/index.html",
     "static/media/check.svg": "/recipes-react-frontend/static/media/check.247b86d0e6a26346bf0885b5b0408bd8.svg",
     "main.48c79681.css.map": "/recipes-react-frontend/static/css/main.48c79681.css.map",
-    "main.da1b6e71.js.map": "/recipes-react-frontend/static/js/main.da1b6e71.js.map",
+    "main.5e7fda4a.js.map": "/recipes-react-frontend/static/js/main.5e7fda4a.js.map",
     "856.5b44e2e7.chunk.js.map": "/recipes-react-frontend/static/js/856.5b44e2e7.chunk.js.map",
     "697.58fcfaae.chunk.js.map": "/recipes-react-frontend/static/js/697.58fcfaae.chunk.js.map",
     "698.4f22015c.chunk.js.map": "/recipes-react-frontend/static/js/698.4f22015c.chunk.js.map",
@@ -55,7 +55,7 @@
     "84.080d8631.chunk.css.map": "/recipes-react-frontend/static/css/84.080d8631.chunk.css.map",
     "84.2a5a40d6.chunk.js.map": "/recipes-react-frontend/static/js/84.2a5a40d6.chunk.js.map",
     "735.87843bf6.chunk.css.map": "/recipes-react-frontend/static/css/735.87843bf6.chunk.css.map",
-    "735.14bf4294.chunk.js.map": "/recipes-react-frontend/static/js/735.14bf4294.chunk.js.map",
+    "735.668a23e1.chunk.js.map": "/recipes-react-frontend/static/js/735.668a23e1.chunk.js.map",
     "574.4c0091a8.chunk.js.map": "/recipes-react-frontend/static/js/574.4c0091a8.chunk.js.map",
     "488.4f46bda5.chunk.js.map": "/recipes-react-frontend/static/js/488.4f46bda5.chunk.js.map",
     "221.dfd034ad.chunk.js.map": "/recipes-react-frontend/static/js/221.dfd034ad.chunk.js.map",
@@ -69,6 +69,6 @@
   },
   "entrypoints": [
     "static/css/main.48c79681.css",
-    "static/js/main.da1b6e71.js"
+    "static/js/main.5e7fda4a.js"
   ]
 }
