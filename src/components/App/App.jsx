@@ -43,7 +43,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(refreshUser());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (loggedIn) {
