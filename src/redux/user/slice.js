@@ -22,7 +22,7 @@ const initialState = {
     favoriteRecipeIds: [],
   },
   error: null,
-  isRefreshing: true,
+  isRefreshing: false,
   isLoggedIn: false,
   authError: null,
   updateUserDataLoading: false,
@@ -50,6 +50,7 @@ const userSlice = createSlice({
         state.user.id = user.id;
         state.user.username = user.username;
         state.user.email = user.email;
+        state.user.avatarURL = user.avatarURL;
         state.isLoggedIn = true;
         state.authError = null;
       })

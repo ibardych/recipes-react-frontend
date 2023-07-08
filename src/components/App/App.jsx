@@ -35,11 +35,15 @@ const App = () => {
   const themeMode = useSelector(selectThemeMode);
   const loggedIn = useSelector(selectIsLoggedIn);
 
+  // useEffect(() => {
+  //   if (!loggedIn) {
+  //     dispatch(refreshUser());
+  //   }
+  // }, [dispatch, loggedIn, isRefreshing]);
+
   useEffect(() => {
-    if (!loggedIn) {
-      dispatch(refreshUser());
-    }
-  }, [dispatch, loggedIn, isRefreshing]);
+    dispatch(refreshUser());
+  }, []);
 
   useEffect(() => {
     if (loggedIn) {

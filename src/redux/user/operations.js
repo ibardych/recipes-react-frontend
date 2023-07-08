@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import BASENAME from 'constants/basename';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACKAND_BASEURL,
@@ -18,27 +19,6 @@ const clearAuthHeader = () => {
 //   config.headers.common.authorization = `Bearer ${accessToken}`;
 //   return config;
 // });
-
-instance.interceptors.response.use(
-  response => response,
-  async error => {
-    if (error.response.status === 401) {
-      const refreshToken = localStorage.getItem('refreshToken');
-      try {
-        const { data } = await instance.post('/auth/refresh', { refreshToken });
-        setAuthHeader(data.accessToken);
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
-        error.config.headers.authorization = `Bearer ${data.accessToken}`;
-
-        return instance(error.config);
-      } catch (error) {
-        return Promise.reject(error);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
 
 export const register = createAsyncThunk(
   'user/register',
@@ -168,6 +148,34 @@ export const updateUserData = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
+  }
+);
+
+instance.interceptors.response.use(
+  response => response,
+  async error => {
+    if (error.response.status === 401) {
+      const refreshToken = localStorage.getItem('refreshToken');
+      try {
+        const { data } = await instance.post('/auth/refresh', { refreshToken });
+        setAuthHeader(data.accessToken);
+        localStorage.setItem('accessToken', data.accessToken);
+        // localStorage.setItem('refreshToken', data.refreshToken);
+        error.config.headers.authorization = `Bearer ${data.accessToken}`;
+
+        if (error.config.url !== '/auth/current') {
+          return instance(error.config);
+        }
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    if (error.response.status === 403 && localStorage.getItem('accessToken')) {
+      localStorage.setItem('accessToken', '');
+      localStorage.setItem('accessToken', '');
+      window.location.replace(`${BASENAME}/signin`);
+    }
+    return Promise.reject(error);
   }
 );
 

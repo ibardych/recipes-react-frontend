@@ -7,7 +7,7 @@ import { InputWraper } from 'components/Form/Input.styled';
 import { Button } from 'components/Styled';
 import { FormFields, LoginFormStyled } from './LoginForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn } from 'redux/user/operations';
+import { logIn, refreshUser } from 'redux/user/operations';
 import Message from 'components/Message/Message';
 import ShowPassword from 'components/ShowPassword/ShowPassword';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -41,6 +41,10 @@ export const LoginForm = () => {
   const handleSubmit = (values, { resetForm }) => {
     dispatch(logIn(values));
     //if (!message) resetForm();
+  };
+
+  const r = () => {
+    dispatch(refreshUser());
   };
 
   return (
@@ -145,6 +149,7 @@ export const LoginForm = () => {
                   Sign In
                 </Button>
               </ButtonContainer>
+              <div onClick={r}>sdf</div>
             </Form>
           );
         }}
