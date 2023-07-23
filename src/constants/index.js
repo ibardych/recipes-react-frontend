@@ -1,4 +1,3 @@
-export * from './basename';
 export * from './colors';
 export * from './media';
 export * from './measure.types';

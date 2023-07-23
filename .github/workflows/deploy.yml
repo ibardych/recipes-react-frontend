@@ -18,6 +18,8 @@ jobs:
           npm run build
         env:
           REACT_APP_BACKAND_BASEURL: ${{ secrets.REACT_APP_BACKAND_BASEURL }}
+          REACT_APP_BASEURL: ${{ secrets.REACT_APP_BASEURL }}
+          REACT_APP_FRONTEND_BASEURL: ${{ secrets.REACT_APP_FRONTEND_BASEURL }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0

@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import BASENAME from 'constants/basename';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACKAND_BASEURL,
@@ -173,7 +172,7 @@ instance.interceptors.response.use(
     if (error.response.status === 403 && localStorage.getItem('accessToken')) {
       localStorage.setItem('accessToken', '');
       localStorage.setItem('accessToken', '');
-      // window.location.replace(`${BASENAME}/signin`);
+      // window.location.replace(`${process.env.REACT_APP_BASEURL}/signin`);
     }
     return Promise.reject(error);
   }
